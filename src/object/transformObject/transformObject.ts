@@ -1,7 +1,7 @@
 import * as R from 'remeda';
 import get from '../get';
 import setMutable from '../setMutable';
-import unset from '../unset';
+import unsetMutable from '../unsetMutable';
 import type { MappingRule, TransformObjectOptions } from './types';
 
 /**
@@ -45,7 +45,7 @@ export default function transformObject<
       // 削除フラグ
       const needsDelete = specificDelete ?? deleteSourceKeys;
       if (needsDelete) {
-        unset(source, fromPath);
+        unsetMutable(source, fromPath);
       }
     } else if (R.isFunction(fromPath)) {
       value = fromPath(source);

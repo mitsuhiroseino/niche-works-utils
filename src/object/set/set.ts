@@ -8,18 +8,18 @@ import _parsePath from '../../_internal/_parsePath';
  * @param value 設定する値
  * @returns 更新された新しいオブジェクト
  */
-const setImmutable = <T extends object>(
+const set = <T extends object>(
   data: T,
   path: string | PropertyKey[],
   value: any,
-) => _setImmutable(data, path, value);
-setImmutable.dataLast =
+) => _set(data, path, value);
+set.dataLast =
   <T extends object>(path: string | PropertyKey[], value: any) =>
   (data: T) =>
-    _setImmutable(data, path, value);
-export default setImmutable;
+    _set(data, path, value);
+export default set;
 
-function _setImmutable<T extends object>(
+function _set<T extends object>(
   data: T,
   path: string | PropertyKey[],
   value: any,
