@@ -23,7 +23,7 @@
     "rootDir": "src",
     "outDir": "dist",
     "declarationDir": "dist",
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types", "./node_modules"],
     "jsx": "react-jsx",
     "allowJs": true,
     "checkJs": true,
@@ -40,6 +40,5 @@
     "strictPropertyInitialization": false,
     "preserveSymlinks": false
   },
-  "include": ["src", "globals.d.ts"],
-  "exclude": ["src/**/*.test.*"]
+  "include": ["src", "globals.d.ts"]
 }
