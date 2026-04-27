@@ -6,5 +6,13 @@ import {
 } from '@niche-works/dev/indexes/constants';
 
 indexes({
-  exclude: [CONSTANTS, PRIVATE, TEST_FILE],
+  exclude: [
+    CONSTANTS,
+    PRIVATE,
+    TEST_FILE,
+    {
+      valueType: 'path',
+      conditions: /\/_internal\/.+/,
+    },
+  ],
 });

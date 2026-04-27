@@ -1,3 +1,5 @@
+export type { Empty, Falsy, Nullish } from '@niche-works/types';
+
 export type MaybeMapOptions = {
   /**
    * 戻り値から除外するcallbackの値
@@ -13,9 +15,5 @@ export type MaybeMapOptions = {
 };
 
 export type ExcludeValue = 'undefined' | 'nullish' | 'empty' | 'falsy';
-
-export type Nullish = undefined | null;
-export type Empty = Nullish | '';
-export type Falsy = Empty | false | 0 | -0 | 0n | typeof NaN;
 
 export type Iteratee<V, R> = (value: V, index: number, data: V[]) => R;
