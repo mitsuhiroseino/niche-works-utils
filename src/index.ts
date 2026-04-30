@@ -1,7 +1,6 @@
 export * from './array';
 export * from './boolean';
 export * from './compare';
-export * from './constants';
 export * from './date';
 export * from './format';
 export * from './function';

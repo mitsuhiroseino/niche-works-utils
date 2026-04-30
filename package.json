@@ -1,6 +1,6 @@
 {
   "name": "@niche-works/utils",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "keywords": [
     "utils"
   ],
@@ -27,8 +27,10 @@
     "tidy": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" --config ./prettier.tidy.config.js"
   },
   "dependencies": {
+    "@niche-works/constants": "^0.1.1",
     "@niche-works/types": "^0.1.0",
     "big.js": "^6.2.2",
+    "klona": "^2.0.6",
     "remeda": "^2.33.6",
     "tslib": "^2.8.1"
   },
