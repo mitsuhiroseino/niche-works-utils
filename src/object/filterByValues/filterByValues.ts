@@ -1,9 +1,8 @@
 import * as R from 'remeda';
+import alwaysInput from '../../function/alwaysInput';
 import fold from '../../string/fold';
 import countKeys from '../countKeys';
 import type { FilterByValuesOptions } from './types';
-
-const DEFAULT_NORMALIZE_FN = R.identity();
 
 /**
  * 指定の文字列が含まれる値を持つ項目以外をフィルタリングする
@@ -19,7 +18,7 @@ export default function filterValue<T = any>(
 ): T {
   const { normalize } = options;
 
-  let normalizeFn: (value: string) => string = DEFAULT_NORMALIZE_FN;
+  let normalizeFn: (value: string) => string = alwaysInput;
   if (condition !== undefined) {
     if (normalize && R.isString(condition)) {
       normalizeFn = fold;
