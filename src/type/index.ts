@@ -18,3 +18,4 @@ export { default as isUndefined } from './isUndefined';
 export { default as isValidDate } from './isValidDate';
 export { default as isValidNumber } from './isValidNumber';
 export { default as kind } from './kind';
+export { default as unsafeCast } from './unsafeCast';
