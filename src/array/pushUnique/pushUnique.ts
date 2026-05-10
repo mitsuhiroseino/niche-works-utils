@@ -1,28 +1,30 @@
+import pushUniqueMutable from '../pushUniqueMutable';
+import type { PushUniqueOptions } from './types';
+
 /**
- * 同じ要素が配列に存在しない場合のみ要素を追加する。\
- * 要素数が少ない場合は`pushUniqueLite`を使った方が高速な場合がある。
- * @param data
- * @param items
+ * 同じ要素が配列に存在しない場合のみ追加先の新しい配列に要素を追加する。
+ * @param data 追加先の配列
+ * @param items 追加する要素
+ * @param options オプション
  */
-const pushUnique = <T>(data: T[], items: T[]) => _pushUnique(data, items);
+const pushUnique = <T>(
+  data: T[] | null | undefined,
+  items: T[] | null | undefined,
+  options?: PushUniqueOptions<T>,
+) => _pushUnique(data, items, options);
 pushUnique.dataLast =
-  <T>(items: T[]) =>
-  (data: T[]) =>
-    _pushUnique(data, items);
+  <T>(items: T[] | null | undefined, options?: PushUniqueOptions<T>) =>
+  (data: T[] | null | undefined) =>
+    _pushUnique(data, items, options);
 export default pushUnique;
 
-function _pushUnique<T>(data: T[], items: T[]): T[] {
-  if (data) {
-    const existingSet = new Set(data);
-
-    for (const item of items) {
-      if (existingSet.has(item)) {
-        continue;
-      }
-      existingSet.add(item);
-      data.push(item);
-    }
+function _pushUnique<T>(
+  data: T[] | null | undefined,
+  items: T[] | null | undefined,
+  options: PushUniqueOptions<T> = {},
+): T[] | null | undefined {
+  if (data && items) {
+    return pushUniqueMutable([...data], items, options);
   }
-
   return data;
 }

@@ -1,4 +1,5 @@
 import type { AsyncFunction } from '@niche-works/types';
+import alwaysTrue from '../alwaysTrue';
 import type { WithFallbackOptions } from './types';
 
 /**
@@ -44,7 +45,7 @@ export default function withFallback<T extends unknown[], R>(
   fallback: (error: unknown) => R | Promise<R>,
   options: WithFallbackOptions = {},
 ): AsyncFunction<T, R> {
-  const { shouldFallback = () => true, onFallback } = options;
+  const { shouldFallback = alwaysTrue, onFallback } = options;
 
   return async (...args: T): Promise<R> => {
     try {

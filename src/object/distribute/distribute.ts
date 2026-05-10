@@ -1,20 +1,22 @@
+import type { LooseRecord } from '@niche-works/types';
 import * as R from 'remeda';
+import unsafeCast from '../../type/unsafeCast';
 import type {
-  PartitionOptions,
-  PartitionResult,
-  PartitionRules,
+  DistributeOptions,
+  DistributeResult,
+  DistributeRules,
 } from './types';
 
 /**
- * object直下のプロパティをrulesに従って分類する
+ * object直下のプロパティをrulesに従って分配する
  * @param data
  * @param rules
  * @param options
  */
-export default function partition<
-  T extends Record<PropertyKey, any>,
-  R extends PartitionRules<T>,
->(data: T, rules: R, options: PartitionOptions = {}): PartitionResult<T, R> {
+export default function distribute<
+  T extends LooseRecord,
+  R extends DistributeRules<T>,
+>(data: T, rules: R, options: DistributeOptions = {}): DistributeResult<T, R> {
   const { includeInherited, cloneValue } = options;
   const has = includeInherited
     ? (property) => property in data
@@ -22,20 +24,29 @@ export default function partition<
   const get = cloneValue
     ? (property) => R.clone(data[property])
     : (property) => data[property];
-  // 分類結果
+  // 分配結果
   const result: Record<string, Record<PropertyKey, unknown>> = {};
-  // 対象をrestにコピーし、分類できたものはrestから削除していく
+  // 対象をrestにコピーし、分配できたものはrestから削除していく
   const rest = { ...data };
   const restGroupKeys: string[] = [];
 
   for (const groupKey in rules) {
-    const group = (result[groupKey] = {} as any);
+    const group: LooseRecord = (result[groupKey] = {});
     const properties = rules[groupKey];
     if (properties == null) {
-      // 分類できなかったプロパティを設定するグループ
+      // 分配できなかったプロパティを設定するグループ
       restGroupKeys.push(groupKey);
+    } else if (Array.isArray(properties)) {
+      // 指定のプロパティを対象のグループへ分配
+      for (const property of properties) {
+        if (has(property)) {
+          // 元のプロパティ名でグループへ設定
+          group[property] = get(property);
+          delete rest[property];
+        }
+      }
     } else {
-      // 指定のプロパティを対象のグループへ分類
+      // 指定のプロパティを対象のグループへ分配
       for (const property in properties) {
         if (has(property)) {
           const value = properties[property];
@@ -45,7 +56,7 @@ export default function partition<
             delete rest[property];
           } else if (value !== false) {
             // 指定のプロパティ名でグループへ設定
-            group[value] = get(property);
+            group[unsafeCast<string>(value)] = get(property);
             delete rest[property];
           }
         }
@@ -59,5 +70,5 @@ export default function partition<
     }
   }
 
-  return result as PartitionResult<T, R>;
+  return result as DistributeResult<T, R>;
 }

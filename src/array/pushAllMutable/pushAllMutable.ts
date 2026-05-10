@@ -5,16 +5,17 @@
  * @param source 追加する要素を持つ配列
  * @returns 要素を追加した配列
  */
-const pushAll = <T>(data: T[], source: T[]) => _pushAll(data, source);
-pushAll.dataLast =
+const pushAllMutable = <T>(data: T[], source: T[]) =>
+  _pushAllMutable(data, source);
+pushAllMutable.dataLast =
   <T>(source: T[]) =>
   (data: T[]) =>
-    _pushAll(data, source);
-export default pushAll;
+    _pushAllMutable(data, source);
+export default pushAllMutable;
 
-function _pushAll<T>(data: T[], source: T[]): T[] {
+function _pushAllMutable<T>(data: T[], source: T[]): T[] {
   if (data && source) {
-    data.push(...source);
+    return [...data, ...source];
   }
   return data;
 }

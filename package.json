@@ -1,6 +1,6 @@
 {
   "name": "@niche-works/utils",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "keywords": [
     "utils"
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@niche-works/constants": "^0.1.1",
-    "@niche-works/types": "^0.2.0",
+    "@niche-works/types": "^0.3.0",
     "big.js": "^6.2.2",
     "klona": "^2.0.6",
     "remeda": "^2.33.6",

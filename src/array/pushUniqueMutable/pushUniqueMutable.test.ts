@@ -1,76 +1,81 @@
 import { describe, expect, it } from 'vitest';
-import pushUnique from './pushUnique';
+import pushUniqueMutable from './pushUniqueMutable';
 
-describe('pushUnique', () => {
+describe('pushUniqueMutable', () => {
   describe('基本動作', () => {
-    it('重複しない要素を追加した新しい配列を返す', () => {
-      const result = pushUnique([1, 2, 3], [4, 5]);
+    it('重複しない要素を追加する', () => {
+      const data = [1, 2, 3];
+      const result = pushUniqueMutable(data, [4, 5]);
       expect(result).toEqual([1, 2, 3, 4, 5]);
     });
 
     it('重複する要素は追加しない', () => {
-      const result = pushUnique([1, 2, 3], [2, 3]);
+      const data = [1, 2, 3];
+      const result = pushUniqueMutable(data, [2, 3]);
       expect(result).toEqual([1, 2, 3]);
     });
 
     it('重複あり・なしが混在する場合、重複しない要素のみ追加する', () => {
-      const result = pushUnique([1, 2, 3], [2, 4]);
+      const data = [1, 2, 3];
+      const result = pushUniqueMutable(data, [2, 4]);
       expect(result).toEqual([1, 2, 3, 4]);
     });
 
-    it('dataを破壊的に変更しない', () => {
+    it('dataを破壊的に変更する', () => {
       const data = [1, 2, 3];
-      pushUnique(data, [4]);
-      expect(data).toEqual([1, 2, 3]);
+      pushUniqueMutable(data, [4]);
+      expect(data).toEqual([1, 2, 3, 4]);
     });
 
-    it('戻り値はdataと異なる参照である', () => {
+    it('戻り値はdataと同じ参照である', () => {
       const data = [1, 2, 3];
-      const result = pushUnique(data, [4]);
-      expect(result).not.toBe(data);
+      const result = pushUniqueMutable(data, [4]);
+      expect(result).toBe(data);
     });
 
     it('itemsに重複がある場合、最初の1つのみ追加する', () => {
-      const result = pushUnique([1], [2, 2]);
+      const data = [1];
+      const result = pushUniqueMutable(data, [2, 2]);
       expect(result).toEqual([1, 2]);
     });
   });
 
   describe('null / undefined', () => {
     it('dataがnullの場合はnullを返す', () => {
-      expect(pushUnique(null, [1])).toBeNull();
+      expect(pushUniqueMutable(null, [1])).toBeNull();
     });
 
     it('dataがundefinedの場合はundefinedを返す', () => {
-      expect(pushUnique(undefined, [1])).toBeUndefined();
+      expect(pushUniqueMutable(undefined, [1])).toBeUndefined();
     });
 
     it('itemsがnullの場合はdataをそのまま返す', () => {
       const data = [1, 2, 3];
-      const result = pushUnique(data, null);
+      const result = pushUniqueMutable(data, null);
       expect(result).toBe(data);
     });
 
     it('itemsがundefinedの場合はdataをそのまま返す', () => {
       const data = [1, 2, 3];
-      const result = pushUnique(data, undefined);
+      const result = pushUniqueMutable(data, undefined);
       expect(result).toBe(data);
     });
 
     it('dataもitemsもnullの場合はnullを返す', () => {
-      expect(pushUnique(null, null)).toBeNull();
+      expect(pushUniqueMutable(null, null)).toBeNull();
     });
   });
 
   describe('threshold オプション', () => {
     it('thresholdを下回る場合はincludesで判定する', () => {
-      const result = pushUnique([1, 2, 3], [2, 4], { threshold: 100 });
+      const data = [1, 2, 3];
+      const result = pushUniqueMutable(data, [2, 4], { threshold: 100 });
       expect(result).toEqual([1, 2, 3, 4]);
     });
 
     it('thresholdを上回る場合はSetで判定する', () => {
       const data = Array.from({ length: 50 }, (_, i) => i);
-      const result = pushUnique(data, [0, 50], { threshold: 10 });
+      const result = pushUniqueMutable(data, [0, 50], { threshold: 10 });
       expect(result).toContain(50);
       expect(result?.filter((v) => v === 0)).toHaveLength(1);
     });
@@ -78,39 +83,36 @@ describe('pushUnique', () => {
 
   describe('comparator オプション', () => {
     it('comparatorによる同一性判定で重複を除外する', () => {
-      const result = pushUnique(
-        [{ id: 1 }, { id: 2 }],
-        [{ id: 2 }, { id: 3 }],
-        {
-          comparator: (a, b) => a.id === b.id,
-        },
-      );
+      const data = [{ id: 1 }, { id: 2 }];
+      const result = pushUniqueMutable(data, [{ id: 2 }, { id: 3 }], {
+        comparator: (a, b) => a.id === b.id,
+      });
       expect(result).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
     });
 
-    it('comparator指定時もdataを破壊的に変更しない', () => {
-      const data = [{ id: 1 }];
-      pushUnique(data, [{ id: 2 }], { comparator: (a, b) => a.id === b.id });
-      expect(data).toEqual([{ id: 1 }]);
+    it('comparator指定時はthresholdに関わらず線形探索する', () => {
+      const data = Array.from({ length: 200 }, (_, i) => ({ id: i }));
+      const result = pushUniqueMutable(data, [{ id: 0 }, { id: 200 }], {
+        comparator: (a, b) => a.id === b.id,
+        threshold: 10,
+      });
+      expect(result?.filter((v) => v.id === 0)).toHaveLength(1);
+      expect(result?.some((v) => v.id === 200)).toBe(true);
     });
   });
 
   describe('dataLast', () => {
     it('dataLastでカリー化して使用できる', () => {
-      const result = pushUnique.dataLast([4, 5])([1, 2, 3]);
+      const data = [1, 2, 3];
+      const result = pushUniqueMutable.dataLast([4, 5])(data);
       expect(result).toEqual([1, 2, 3, 4, 5]);
     });
 
-    it('dataLastでもdataを破壊的に変更しない', () => {
-      const data = [1, 2, 3];
-      pushUnique.dataLast([4])(data);
-      expect(data).toEqual([1, 2, 3]);
-    });
-
     it('dataLastでoptionsを渡せる', () => {
-      const result = pushUnique.dataLast([{ id: 1 }, { id: 2 }], {
+      const data = [{ id: 1 }];
+      const result = pushUniqueMutable.dataLast([{ id: 1 }, { id: 2 }], {
         comparator: (a, b) => a.id === b.id,
-      })([{ id: 1 }]);
+      })(data);
       expect(result).toEqual([{ id: 1 }, { id: 2 }]);
     });
   });

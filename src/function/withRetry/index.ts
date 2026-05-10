@@ -1,2 +1,2 @@
-export { default } from './withRetry';
 export type * from './types';
+export { default } from './withRetry';

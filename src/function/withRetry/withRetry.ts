@@ -1,4 +1,5 @@
 import type { AsyncFunction } from '@niche-works/types';
+import alwaysTrue from '../alwaysTrue';
 import type { WithRetryOptions } from './types';
 
 /**
@@ -32,7 +33,7 @@ export default function withRetry<T extends unknown[], R>(
   const {
     delay = 0,
     exponentialBackoff = false,
-    shouldRetry = () => true,
+    shouldRetry = alwaysTrue,
     onRetry,
   } = options;
 
