@@ -1,4 +1,5 @@
 import { _getTransformedKey } from '../../_internal/_normalizedKeyHelpers';
+import unsafeCast from '../../type/unsafeCast';
 import type { SetByNormalizedKeyOptions } from './types';
 
 /**
@@ -22,12 +23,12 @@ export default function setByNormalizedKey<T extends Record<string, unknown>>(
   for (const existingKey in data) {
     if (Object.hasOwn(data, existingKey)) {
       if (_getTransformedKey(existingKey, data, options) === normalizedKey) {
-        data[existingKey] = value as any;
+        data[existingKey] = unsafeCast(value);
         return data;
       }
     }
   }
-  data[key as keyof T] = value as any;
+  data[key as keyof T] = unsafeCast(value);
 
   return data;
 }

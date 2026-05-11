@@ -1,5 +1,6 @@
 import * as R from 'remeda';
 import isRegExp from '../../type/isRegExp';
+import unsafeCast from '../../type/unsafeCast';
 import type {
   DynamicPattern,
   FlexiblePattern,
@@ -19,16 +20,16 @@ export default function maybeReplace<
 >(
   str: string | null | undefined,
   pattern: FlexiblePattern,
-  replacement: string | ((substring: string, ...args: any[]) => string),
+  replacement: string | ((substring: string, ...args: unknown[]) => string),
   options?: O,
 ) {
   if (str != null) {
     if (R.isString(pattern)) {
       // パターンが文字列の場合
-      return str.replaceAll(pattern, replacement as any);
+      return str.replaceAll(pattern, unsafeCast(replacement));
     } else if (isRegExp(pattern)) {
       // パターンが正規表現の場合
-      return str.replace(pattern, replacement as any);
+      return str.replace(pattern, unsafeCast(replacement));
     } else if (R.isFunction(pattern)) {
       // パターンが関数の場合
       return maybeReplace(

@@ -1,6 +1,6 @@
-import type { FoldOptions } from '../../string/fold';
+import type { NormalizeStringOptions } from '../../string/normalizeString';
 
 /**
  * オプション
  */
-export type GetByNormalizedKeyOptions = FoldOptions & {};
+export type GetByNormalizedKeyOptions = NormalizeStringOptions & {};

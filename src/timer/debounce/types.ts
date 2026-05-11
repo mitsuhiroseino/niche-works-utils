@@ -1,6 +1,14 @@
 export type DebounceOptions = {
   /**
    * 実行するタイミング
+   *
+   * - 'end': `☆-★-★`
+   * - 'start': `★-★-☆`
+   * - 'both': `★-★-★`
+   *
+   * \* ★: 実行、☆: 未実行
+   *
+   * @default 'end'
    */
   triggerAt?: 'end' | 'start' | 'both';
 };

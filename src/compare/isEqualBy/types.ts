@@ -29,10 +29,10 @@ export type IsEqualByOptions = {
    * @returns
    */
   customizer?: (
-    value1: any,
-    value2: any,
+    value1: unknown,
+    value2: unknown,
     indexOrKey?: PropertyKey | undefined,
-    value1Parent?: any,
-    value2Parent?: any,
-  ) => boolean | void;
+    value1Parent?: unknown,
+    value2Parent?: unknown,
+  ) => boolean | undefined;
 };

@@ -7,8 +7,12 @@
  * @returns
  */
 export default function overrideInstance<
-  I extends Record<PropertyKey, any>,
-  O extends Record<PropertyKey, (target: I, prop: any, receiver: any) => any>,
+  I extends object,
+  O extends Record<
+    PropertyKey,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (target: I, prop: string | symbol, receiver: any) => any
+  >,
 >(
   instance: I,
   overrides: O = {} as O,
@@ -20,5 +24,5 @@ export default function overrideInstance<
       }
       return Reflect.get(target, property, receiver);
     },
-  }) as any;
+  }) as I & { [K in keyof O]: ReturnType<O[K]> };
 }

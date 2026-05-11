@@ -20,7 +20,7 @@ const EQUAL = {
   ) => {
     if (options.customizer) {
       // customizerがある場合
-      return isEqualWith(value1, value2, options.customizer as any);
+      return isEqualWith(value1, value2, options.customizer);
     } else {
       return R.isDeepEqual(value1, value2);
     }
@@ -33,7 +33,7 @@ const EQUAL_WITH_CUSTOMIZER = {
     value2: unknown,
     options: IsEqualByOptions,
   ) => {
-    const customizer: any = options.customizer;
+    const customizer = options.customizer;
     const result = customizer(value1, value2);
     if (result == null) {
       return value1 === value2;
@@ -47,7 +47,7 @@ const EQUAL_WITH_CUSTOMIZER = {
     value2: unknown,
     options: IsEqualByOptions,
   ) => {
-    const customizer: any = options.customizer;
+    const customizer = options.customizer;
     const result = customizer(value1, value2);
     if (result == null) {
       return value1 == value2;
@@ -61,7 +61,7 @@ const EQUAL_WITH_CUSTOMIZER = {
     value2: unknown,
     options: IsEqualByOptions,
   ) => {
-    const customizer: any = options.customizer;
+    const customizer = options.customizer;
     return isEqualWith(value1, value2, customizer);
   },
 };

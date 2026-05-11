@@ -11,10 +11,10 @@ import _parsePath from '../../_internal/_parsePath';
 const set = <T extends object>(
   data: T,
   path: string | PropertyKey[],
-  value: any,
+  value: unknown,
 ) => _set(data, path, value);
 set.dataLast =
-  <T extends object>(path: string | PropertyKey[], value: any) =>
+  <T extends object>(path: string | PropertyKey[], value: unknown) =>
   (data: T) =>
     _set(data, path, value);
 export default set;
@@ -22,11 +22,11 @@ export default set;
 function _set<T extends object>(
   data: T,
   path: string | PropertyKey[],
-  value: any,
+  value: unknown,
 ): T {
   const segments = _parsePath(path);
 
-  const setter = (current: any, index: number): any => {
+  const setter = (current: unknown, index: number): unknown => {
     if (index === segments.length) {
       return value;
     }
@@ -43,12 +43,12 @@ function _set<T extends object>(
     // 配列かオブジェクトかでコピー処理を分岐
     if (Array.isArray(current) || typeof key === 'number') {
       const clone = Array.isArray(current) ? [...current] : [];
-      clone[key as any] = updatedValue;
+      clone[key as PropertyKey] = updatedValue;
       return clone;
     } else {
-      return { ...current, [key]: updatedValue };
+      return { ...(current as object), [key]: updatedValue };
     }
   };
 
-  return setter(data, 0);
+  return setter(data, 0) as T;
 }

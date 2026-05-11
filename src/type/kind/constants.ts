@@ -1,116 +1,80 @@
+import { TypeOfResult } from '@niche-works/constants';
+
 /**
  * 型種別
  */
 export const KindType = {
-  /**
-   * undefined
-   */
-  UNDEFINED: 'undefined',
+  ...TypeOfResult,
 
   /**
    * null
    */
-  NULL: 'null',
-
-  /**
-   * 文字列
-   */
-  STRING: 'string',
-
-  /**
-   * 数値
-   */
-  NUMBER: 'number',
-
-  /**
-   * BigInt
-   */
-  BIG_INT: 'bigint',
-
-  /**
-   * 真偽値
-   */
-  BOOLEAN: 'boolean',
-
-  /**
-   * 関数
-   */
-  FUNCTION: 'function',
+  null: 'null',
 
   /**
    * 日付
    */
-  DATE: 'date',
+  date: 'date',
 
   /**
    * 配列
    */
-  ARRAY: 'array',
+  array: 'array',
 
   /**
    * 単純なオブジェクト
    */
-  PLAIN_OBJECT: 'plainobject',
+  plainobject: 'plainobject',
 
   /**
    * 正規表現
    */
-  REGEXP: 'regexp',
+  regexp: 'regexp',
 
   /**
    * エラーオブジェクト
    */
-  ERROR: 'error',
+  error: 'error',
 
   /**
    * Map
    */
-  MAP: 'map',
+  map: 'map',
 
   /**
    * Set
    */
-  SET: 'set',
+  set: 'set',
 
   /**
    * WeakMap
    */
-  WEAK_MAP: 'weakmap',
+  weakmap: 'weakmap',
 
   /**
    * WeakSet
    */
-  WEAK_SET: 'weakset',
+  weakset: 'weakset',
 
   /**
    * Promise
    */
-  PROMISE: 'promise',
+  promise: 'promise',
 
   /**
    * ArrayBuffer
    */
-  ARRAY_BUFFER: 'arraybuffer',
+  arraybuffer: 'arraybuffer',
 
   /**
    * SharedArrayBuffer
    */
-  SHARED_ARRAY_BUFFER: 'sharedarraybuffer',
-
-  /**
-   * シンボル
-   */
-  SYMBOL: 'symbol',
-
-  /**
-   * オブジェクト
-   */
-  OBJECT: 'object',
+  sharedarraybuffer: 'sharedarraybuffer',
 
   /**
    * 任意の型
    */
-  ANY: 'any',
+  any: 'any',
 } as const;
 
 /**

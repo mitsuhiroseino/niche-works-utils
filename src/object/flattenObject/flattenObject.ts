@@ -1,3 +1,4 @@
+import type { LooseRecord } from '@niche-works/types';
 import * as R from 'remeda';
 import type { FlattenObjectOptions } from './types';
 
@@ -17,17 +18,17 @@ import type { FlattenObjectOptions } from './types';
  * flattenObject({ a: [1, 2] }); // { "a.0": 1, "a.1": 2 }
  */
 export default function flattenObject(
-  data: any,
+  data: LooseRecord,
   options: FlattenObjectOptions = {},
-): any {
+): LooseRecord {
   return _flattenObject(data, options);
 }
 
 function _flattenObject(
-  data: any,
+  data: LooseRecord,
   options: FlattenObjectOptions,
   parentPath?: string,
-): any {
+): LooseRecord {
   if (R.isPlainObject(data) || (Array.isArray(data) && !options.ignoreArray)) {
     // オブジェクトの場合は配下要素をフラットな状態に変換
     let flatObj: { [key: string]: unknown } = {};

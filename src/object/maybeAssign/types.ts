@@ -1,5 +1,3 @@
-import type { ForEachValuesOptions } from '../forEachValues';
+import type { MaybeAssignMutableOptions } from '../maybeAssignMutable';
 
-export type MaybeAssignOptions = ForEachValuesOptions & {
-  skipNull?: boolean;
-};
+export type MaybeAssignOptions = MaybeAssignMutableOptions;

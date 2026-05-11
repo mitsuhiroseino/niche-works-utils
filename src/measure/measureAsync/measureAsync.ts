@@ -8,13 +8,13 @@ import type { MeasureAsyncOptions, MeasureAsyncReturnValue } from './types';
  * @returns
  */
 export default function measureAsync<
-  A extends any[] = any[],
-  R extends any = any | undefined,
+  A extends unknown[] = unknown[],
+  R = unknown,
 >(
   fn: (...args: A) => Promise<R>,
-  options: MeasureAsyncOptions = {},
+  options: MeasureAsyncOptions<A> = {},
 ): Promise<MeasureAsyncReturnValue<R>> {
-  const { iteration = 10, args = [], getArgs = () => args } = options;
+  const { iteration = 10, args = [] as A, getArgs = () => args } = options;
   // 指定回数分実行
   let promise = Promise.resolve<MeasureAsyncReturnValue<R>>({
     time: 0,
@@ -23,11 +23,11 @@ export default function measureAsync<
   for (let i = 0; i < iteration; i++) {
     promise = promise.then((previousResult) => {
       // 引数の取得
-      const currentArgs: any = getArgs();
+      const currentArgs = getArgs();
       return new Promise((resolve, reject) => {
         // 計測
         const start = performance.now();
-        fn.apply(null, currentArgs)
+        fn(...currentArgs)
           .then((returnValue) => {
             const time = previousResult.time + performance.now() - start;
             // 次に渡す

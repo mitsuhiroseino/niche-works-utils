@@ -1,3 +1,4 @@
+import type { LooseRecord } from '@niche-works/types';
 import type { ForEachValuesOptions } from './types';
 
 /**
@@ -8,7 +9,7 @@ import type { ForEachValuesOptions } from './types';
  * @param options
  * @returns 処理が最後まで行われた場合にtrue、処理が中断された場合にfalse
  */
-export default function forEachValues<T extends {}>(
+export default function forEachValues<T extends LooseRecord>(
   target: T,
   callback: (value: unknown, key: PropertyKey, obj: T) => void | boolean,
   options: ForEachValuesOptions = {},

@@ -25,7 +25,7 @@ export default function transformString(
   }
 
   const { composeMap } = options;
-  let maps: ReplacementMapDefinition[] = [];
+  const maps: ReplacementMapDefinition[] = [];
   const lastIndex = types.length - 1;
   return types.reduce((result, type, index) => {
     const fn = TransformFunction[type];

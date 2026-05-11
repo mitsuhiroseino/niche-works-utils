@@ -2,35 +2,35 @@ import createExtractor from './createExtractor';
 
 describe('createExtractor', () => {
   describe('default', () => {
-    test('prefix="{{", suffix="}}"', () => {
+    it('prefix="{{", suffix="}}"', () => {
       const extractTokensCustom = createExtractor(['{{', '}}']);
       const result = extractTokensCustom(
         '{{ABC}}DEFG{{ HIJ}}KL{MNO}PQRSTUVW{{XYZ }}{{ABC}}',
       );
       expect(result).toEqual(['ABC', ' HIJ', 'XYZ ', 'ABC']);
     });
-    test('prefix="${", suffix="}"', () => {
+    it('prefix="${", suffix="}"', () => {
       const extractTokensCustom = createExtractor(['${', '}']);
       const result = extractTokensCustom(
         '${ABC}DEFG${ HIJ}KL{MNO}PQRSTUVW${XYZ }${ABC}',
       );
       expect(result).toEqual(['ABC', ' HIJ', 'XYZ ', 'ABC']);
     });
-    test('prefix="[", suffix="]"', () => {
+    it('prefix="[", suffix="]"', () => {
       const extractTokensCustom = createExtractor(['[', ']']);
       const result = extractTokensCustom(
         '[ABC]DEFG[ HIJ]KLMNOPQRSTUVW[XYZ ][ABC]',
       );
       expect(result).toEqual(['ABC', ' HIJ', 'XYZ ', 'ABC']);
     });
-    test('prefix="|", suffix="|"', () => {
+    it('prefix="|", suffix="|"', () => {
       const extractTokensCustom = createExtractor('|');
       const result = extractTokensCustom(
         '|ABC|DEFG| HIJ|KLMNOPQRSTUVW|XYZ ||ABC|',
       );
       expect(result).toEqual(['ABC', ' HIJ', 'XYZ ', 'ABC']);
     });
-    test('prefix="★", suffix="★"', () => {
+    it('prefix="★", suffix="★"', () => {
       const extractTokensCustom = createExtractor('★');
       const result = extractTokensCustom(
         '★ABC★DEFG★ HIJ★KLMNOPQRSTUVW★XYZ ★★ABC★',
@@ -40,7 +40,7 @@ describe('createExtractor', () => {
   });
 
   describe('keepDelimiters=true', () => {
-    test('prefix="{{", suffix="}}"', () => {
+    it('prefix="{{", suffix="}}"', () => {
       const extractTokensCustom = createExtractor(['{{', '}}']);
       const result = extractTokensCustom(
         '{{ABC}}DEFG{{ HIJ}}KL{MNO}PQRSTUVW{{XYZ }}',
@@ -48,7 +48,7 @@ describe('createExtractor', () => {
       );
       expect(result).toEqual(['{{ABC}}', '{{ HIJ}}', '{{XYZ }}']);
     });
-    test('prefix="${", suffix="}"', () => {
+    it('prefix="${", suffix="}"', () => {
       const extractTokensCustom = createExtractor(['${', '}']);
       const result = extractTokensCustom(
         '${ABC}DEFG${ HIJ}KL{MNO}PQRSTUVW${XYZ }',
@@ -56,21 +56,21 @@ describe('createExtractor', () => {
       );
       expect(result).toEqual(['${ABC}', '${ HIJ}', '${XYZ }']);
     });
-    test('prefix="[", suffix="]"', () => {
+    it('prefix="[", suffix="]"', () => {
       const extractTokensCustom = createExtractor(['[', ']']);
       const result = extractTokensCustom('[ABC]DEFG[ HIJ]KLMNOPQRSTUVW[XYZ ]', {
         keepDelimiters: true,
       });
       expect(result).toEqual(['[ABC]', '[ HIJ]', '[XYZ ]']);
     });
-    test('prefix="|", suffix="|"', () => {
+    it('prefix="|", suffix="|"', () => {
       const extractTokensCustom = createExtractor('|');
       const result = extractTokensCustom('|ABC|DEFG| HIJ|KLMNOPQRSTUVW|XYZ |', {
         keepDelimiters: true,
       });
       expect(result).toEqual(['|ABC|', '| HIJ|', '|XYZ |']);
     });
-    test('prefix="★", suffix="★"', () => {
+    it('prefix="★", suffix="★"', () => {
       const extractTokensCustom = createExtractor('★');
       const result = extractTokensCustom('★ABC★DEFG★ HIJ★KLMNOPQRSTUVW★XYZ ★', {
         keepDelimiters: true,
@@ -80,7 +80,7 @@ describe('createExtractor', () => {
   });
 
   describe('trim=true', () => {
-    test('prefix="{{", suffix="}}"', () => {
+    it('prefix="{{", suffix="}}"', () => {
       const extractTokensCustom = createExtractor(['{{', '}}']);
       const result = extractTokensCustom(
         '{{ABC}}DEFG{{ HIJ}}KL{MNO}PQRSTUVW{{XYZ }}',
@@ -88,7 +88,7 @@ describe('createExtractor', () => {
       );
       expect(result).toEqual(['ABC', 'HIJ', 'XYZ']);
     });
-    test('prefix="${", suffix="}"', () => {
+    it('prefix="${", suffix="}"', () => {
       const extractTokensCustom = createExtractor(['${', '}']);
       const result = extractTokensCustom(
         '${ABC}DEFG${ HIJ}KL{MNO}PQRSTUVW${XYZ }',
@@ -96,21 +96,21 @@ describe('createExtractor', () => {
       );
       expect(result).toEqual(['ABC', 'HIJ', 'XYZ']);
     });
-    test('prefix="[", suffix="]"', () => {
+    it('prefix="[", suffix="]"', () => {
       const extractTokensCustom = createExtractor(['[', ']']);
       const result = extractTokensCustom('[ABC]DEFG[ HIJ]KLMNOPQRSTUVW[XYZ ]', {
         trim: true,
       });
       expect(result).toEqual(['ABC', 'HIJ', 'XYZ']);
     });
-    test('prefix="|", suffix="|"', () => {
+    it('prefix="|", suffix="|"', () => {
       const extractTokensCustom = createExtractor('|');
       const result = extractTokensCustom('|ABC|DEFG| HIJ|KLMNOPQRSTUVW|XYZ |', {
         trim: true,
       });
       expect(result).toEqual(['ABC', 'HIJ', 'XYZ']);
     });
-    test('prefix="★", suffix="★"', () => {
+    it('prefix="★", suffix="★"', () => {
       const extractTokensCustom = createExtractor('★');
       const result = extractTokensCustom('★ABC★DEFG★ HIJ★KLMNOPQRSTUVW★XYZ ★', {
         trim: true,
@@ -120,7 +120,7 @@ describe('createExtractor', () => {
   });
 
   describe('unique=true', () => {
-    test('prefix="{{", suffix="}}"', () => {
+    it('prefix="{{", suffix="}}"', () => {
       const extractTokensCustom = createExtractor(['{{', '}}']);
       const result = extractTokensCustom(
         '{{ABC}}DEFG{{ HIJ}}KL{MNO}PQRSTUVW{{XYZ }}{{ABC}}',
@@ -128,7 +128,7 @@ describe('createExtractor', () => {
       );
       expect(result).toEqual(['ABC', ' HIJ', 'XYZ ']);
     });
-    test('prefix="${", suffix="}"', () => {
+    it('prefix="${", suffix="}"', () => {
       const extractTokensCustom = createExtractor(['${', '}']);
       const result = extractTokensCustom(
         '${ABC}DEFG${ HIJ}KL{MNO}PQRSTUVW${XYZ }${ABC}',
@@ -136,7 +136,7 @@ describe('createExtractor', () => {
       );
       expect(result).toEqual(['ABC', ' HIJ', 'XYZ ']);
     });
-    test('prefix="[", suffix="]"', () => {
+    it('prefix="[", suffix="]"', () => {
       const extractTokensCustom = createExtractor(['[', ']']);
       const result = extractTokensCustom(
         '[ABC]DEFG[ HIJ]KLMNOPQRSTUVW[XYZ ][ABC]',
@@ -144,7 +144,7 @@ describe('createExtractor', () => {
       );
       expect(result).toEqual(['ABC', ' HIJ', 'XYZ ']);
     });
-    test('prefix="|", suffix="|"', () => {
+    it('prefix="|", suffix="|"', () => {
       const extractTokensCustom = createExtractor('|');
       const result = extractTokensCustom(
         '|ABC|DEFG| HIJ|KLMNOPQRSTUVW|XYZ ||ABC|',
@@ -152,7 +152,7 @@ describe('createExtractor', () => {
       );
       expect(result).toEqual(['ABC', ' HIJ', 'XYZ ']);
     });
-    test('prefix="★", suffix="★"', () => {
+    it('prefix="★", suffix="★"', () => {
       const extractTokensCustom = createExtractor('★');
       const result = extractTokensCustom(
         '★ABC★DEFG★ HIJ★KLMNOPQRSTUVW★XYZ ★★ABC★',

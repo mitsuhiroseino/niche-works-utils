@@ -1,23 +1,23 @@
 import upperFirst from './upperFirst';
 
 describe('upperFirst', () => {
-  test('先頭小文字', () => {
+  it('先頭小文字', () => {
     const result = upperFirst('abc');
     expect(result).toBe('Abc');
   });
-  test('先頭大文字', () => {
+  it('先頭大文字', () => {
     const result = upperFirst('Abc');
     expect(result).toBe('Abc');
   });
-  test('1文字', () => {
+  it('1文字', () => {
     const result = upperFirst('a');
     expect(result).toBe('A');
   });
-  test('空文字', () => {
+  it('空文字', () => {
     const result = upperFirst('');
     expect(result).toBe('');
   });
-  test('null', () => {
+  it('null', () => {
     const result = upperFirst(null as any);
     expect(result).toBe(null);
   });

@@ -1,3 +1,5 @@
+import unsafeCast from '../../type/unsafeCast';
+
 /**
  * fnが存在する場合のみ実行する
  * @param fn
@@ -8,7 +10,7 @@ export default function maybeApply<A extends unknown[], R>(
   args?: A,
 ): R | undefined {
   if (fn) {
-    return fn.apply(null, (args || []) as A);
+    return fn(...(args || unsafeCast([])));
   } else {
     return undefined;
   }

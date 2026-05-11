@@ -1,6 +1,6 @@
 {
   "name": "@niche-works/utils",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "private": true,
   "keywords": [
     "utils"
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@niche-works/constants": "^0.1.1",
-    "@niche-works/types": "^0.3.0",
+    "@niche-works/types": "^0.3.1",
     "big.js": "^6.2.2",
     "klona": "^2.0.6",
     "remeda": "^2.33.6",
@@ -53,6 +53,7 @@
     "tsdown": "^0.21.9",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
+    "typescript-eslint": "^8.59.2",
     "vitest": "^4.1.5"
   },
   "packageManager": "pnpm@10.32.1"

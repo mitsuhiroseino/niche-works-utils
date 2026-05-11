@@ -3,7 +3,7 @@ import { ComparisonOperator, ComparisonStrategies } from './constants';
 /**
  * 比較関数
  */
-export type ComparisonStrategy<L extends any = any, R extends any = L> = (
+export type ComparisonStrategy<L = unknown, R = L> = (
   left: L,
   right: R,
 ) => boolean;

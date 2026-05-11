@@ -3,7 +3,7 @@ import type { MeasureOptions } from '../measure';
 /**
  * 測定する対象
  */
-export type MeasurementTarget<A extends Array<unknown>> = {
+export type MeasurementTarget<A extends unknown[] = unknown[], R = unknown> = {
   /**
    * ID
    */
@@ -14,13 +14,16 @@ export type MeasurementTarget<A extends Array<unknown>> = {
    * @param args
    * @returns
    */
-  fn: (...args: A) => any;
+  fn: (...args: A) => R;
 };
 
 /**
  * 測定の議題
  */
-export type MeasurementAgenda<A extends Array<unknown>> = MeasureOptions<A> & {
+export type MeasurementAgenda<
+  A extends unknown[] = unknown[],
+  R = unknown,
+> = MeasureOptions<A> & {
   /**
    * ID
    */
@@ -29,7 +32,7 @@ export type MeasurementAgenda<A extends Array<unknown>> = MeasureOptions<A> & {
   /**
    * 測定対象
    */
-  targets: MeasurementTarget<A>[];
+  targets: MeasurementTarget<A, R>[];
 
   /**
    * 1回の測定で対象の関数を実行する回数
@@ -55,7 +58,7 @@ export type RequiredTimeResult = {
 /**
  * 集計結果
  */
-export type TabulatedResult<A extends Array<unknown>> = {
+export type TabulatedResult<A extends unknown[] = unknown[]> = {
   /**
    * 測定結果毎の平均
    */
@@ -76,8 +79,8 @@ export type TabulatedResult<A extends Array<unknown>> = {
  * 測定結果
  */
 export type MeasurementResult<
-  A extends Array<unknown>,
-  R = any,
+  A extends unknown[] = unknown[],
+  R = unknown,
 > = TabulatedResult<A> & {
   /**
    * ID

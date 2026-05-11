@@ -1,17 +1,17 @@
 import isPresent from './isPresent';
 
 describe('isPresent', () => {
-  test('undefined', () => {
+  it('undefined', () => {
     const result = isPresent(undefined);
     expect(result).toBe(false);
   });
 
-  test('null', () => {
+  it('null', () => {
     const result = isPresent(null);
     expect(result).toBe(false);
   });
 
-  test('空文字列', () => {
+  it('空文字列', () => {
     const result = isPresent('');
     expect(result).toBe(true);
   });

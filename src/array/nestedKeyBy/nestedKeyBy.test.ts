@@ -7,7 +7,7 @@ describe('nestedKeyBy', () => {
     ITEM3 = { $id: 'ID3', field0: 3, field1: 1, field2: 1, field3: '!' },
     ITEM4 = { $id: 'ID4', field0: 4, field1: 0, field2: 0, field3: '!' };
 
-  test('1項目', () => {
+  it('1項目', () => {
     const array = [ITEM0, ITEM1, ITEM2, ITEM3, ITEM4],
       result = nestedKeyBy(array, '$id');
     expect(result).toEqual({
@@ -19,7 +19,7 @@ describe('nestedKeyBy', () => {
     });
   });
 
-  test('複数項目', () => {
+  it('複数項目', () => {
     const array = [ITEM0, ITEM1, ITEM2, ITEM3, ITEM4],
       result = nestedKeyBy(array, ['field3', '$id']);
     expect(result).toEqual({
@@ -35,7 +35,7 @@ describe('nestedKeyBy', () => {
     });
   });
 
-  test('複数項目(flat)', () => {
+  it('複数項目(flat)', () => {
     const array = [ITEM0, ITEM1, ITEM2, ITEM3, ITEM4],
       result = nestedKeyBy(array, ['field3', '$id'], { flat: true });
     expect(result).toEqual({
@@ -47,7 +47,7 @@ describe('nestedKeyBy', () => {
     });
   });
 
-  test('複数項目(flat & 区切り文字="/")', () => {
+  it('複数項目(flat & 区切り文字="/")', () => {
     const array = [ITEM0, ITEM1, ITEM2, ITEM3, ITEM4],
       result = nestedKeyBy(array, ['field3', '$id'], {
         flat: true,

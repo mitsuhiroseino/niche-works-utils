@@ -119,7 +119,7 @@ function sort<I>(
 ) {
   const distinctArray = new Array(...itemsMap.values()),
     length = distinctArray.length,
-    sorted = new Array(),
+    sorted = [],
     visited = {},
     dependenciesMap = makeDependenciesMap(itemsMap, getDeps, getDepId),
     reverseLookupMap = makeReverseLookupMap(distinctArray, getId),

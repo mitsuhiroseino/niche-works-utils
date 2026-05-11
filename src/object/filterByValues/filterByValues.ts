@@ -1,6 +1,7 @@
+import type { LooseRecord } from '@niche-works/types';
 import * as R from 'remeda';
 import alwaysInput from '../../function/alwaysInput';
-import fold from '../../string/fold';
+import normalizeString from '../../string/normalizeString';
 import countKeys from '../countKeys';
 import type { FilterByValuesOptions } from './types';
 
@@ -11,7 +12,7 @@ import type { FilterByValuesOptions } from './types';
  * @param options
  * @returns
  */
-export default function filterValue<T = any>(
+export default function filterValue<T = unknown>(
   target: T,
   condition: unknown,
   options: FilterByValuesOptions = {},
@@ -21,7 +22,7 @@ export default function filterValue<T = any>(
   let normalizeFn: (value: string) => string = alwaysInput;
   if (condition !== undefined) {
     if (normalize && R.isString(condition)) {
-      normalizeFn = fold;
+      normalizeFn = normalizeString;
       condition = normalizeFn(condition);
     }
   }
@@ -29,14 +30,14 @@ export default function filterValue<T = any>(
   return _filter(target, condition, normalizeFn) ?? null;
 }
 
-function _filter(
-  target: any,
+function _filter<T = unknown>(
+  target: T,
   condition: unknown,
   normalizeFn: (value: string) => string,
-): any {
+): T {
   if (Array.isArray(target)) {
     // array
-    let array = [];
+    const array: unknown[] = [];
     for (let i = 0; i < target.length; i++) {
       const item = target[i];
       const result = _filter(item, condition, normalizeFn);
@@ -45,11 +46,11 @@ function _filter(
       }
     }
     if (array.length) {
-      return array;
+      return array as T;
     }
   } else if (R.isPlainObject(target)) {
     // object
-    let obj: Record<PropertyKey, unknown> = {};
+    const obj: LooseRecord = {};
     for (const key in target) {
       // 子要素を処理
       const result = _filter(target[key], condition, normalizeFn);

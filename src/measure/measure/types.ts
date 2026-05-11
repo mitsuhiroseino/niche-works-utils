@@ -1,7 +1,7 @@
 /**
  * measure関数のオプション
  */
-export type MeasureOptions<A extends any[] = any[]> = {
+export type MeasureOptions<A extends unknown[] = unknown[]> = {
   /**
    * 関数の実行回数
    */
@@ -22,7 +22,7 @@ export type MeasureOptions<A extends any[] = any[]> = {
 /**
  * measure関数の戻り値
  */
-export type MeasureReturnValue<R = any> = {
+export type MeasureReturnValue<R = unknown> = {
   /**
    * 所要時間
    */

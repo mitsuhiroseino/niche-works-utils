@@ -2,6 +2,7 @@ import setProperty from '../setProperty';
 
 /**
  * 浅いコピーをする。未対応のものはそのまま返す。
+ *
  * Inspired by klona/full (https://github.com/lukeed/klona)
  *
  * Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
@@ -16,7 +17,9 @@ export default function cloneShallow<T>(value: T): T {
   }
 
   const type = Object.prototype.toString.call(value);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const original = value as any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let copy: any;
 
   // コピーのベースになるものを作る

@@ -11,10 +11,10 @@ import _parsePath from '../../_internal/_parsePath';
 const setMutable = <T extends object>(
   data: T,
   path: string | PropertyKey[],
-  value: any,
+  value: unknown,
 ) => _setMutable(data, path, value);
 setMutable.dataLast =
-  <T extends object>(path: string | PropertyKey[], value: any) =>
+  <T extends object>(path: string | PropertyKey[], value: unknown) =>
   (data: T) =>
     _setMutable(data, path, value);
 export default setMutable;
@@ -22,10 +22,11 @@ export default setMutable;
 function _setMutable<T extends object>(
   data: T,
   path: string | PropertyKey[],
-  value: any,
+  value: unknown,
 ): T {
   const segments = _parsePath(path);
   const length = segments.length;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let current: any = data;
 
   for (let i = 0; i < length; i++) {

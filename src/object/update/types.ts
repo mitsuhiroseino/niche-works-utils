@@ -1,7 +1,6 @@
-import type { IsEqualByOptions } from '../../compare/isEqualBy';
-import type { SetByNormalizedKeyOptions } from '../setByNormalizedKey';
+import type { UpdateMutableOptions } from '../updateMutable';
 
 /**
- * update関数のオプション
+ * オプション
  */
-export type UpdateOptions = IsEqualByOptions & SetByNormalizedKeyOptions;
+export type UpdateOptions = UpdateMutableOptions;

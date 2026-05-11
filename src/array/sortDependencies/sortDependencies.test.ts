@@ -55,7 +55,7 @@ const FLAT_1 = [
 ];
 
 describe('sortDependencies', () => {
-  test('ツリー形式', () => {
+  it('ツリー形式', () => {
     const result = sortDependencies(TREE_1, {
       idProp: 'id',
       depsProp: 'deps',
@@ -75,7 +75,7 @@ describe('sortDependencies', () => {
     ]);
   });
 
-  test('フラット形式', () => {
+  it('フラット形式', () => {
     const result = sortDependencies(FLAT_1, {
       idProp: 'id',
       depsProp: 'deps',

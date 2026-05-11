@@ -5,12 +5,12 @@ export type MappingRule<S extends object, T extends object> = {
   /**
    * 取得元のパス（文字列）または値を抽出する関数
    */
-  from: string | ((source: S) => any);
+  from: string | ((source: S) => unknown);
 
   /**
    * 設定先のパス（文字列）または値を設定する関数。省略時は from と同じパス
    */
-  to?: string | ((target: T, value: any) => T);
+  to?: string | ((target: T, value: unknown) => T);
 
   /**
    * 抽出後に元のオブジェクトから削除するかどうか

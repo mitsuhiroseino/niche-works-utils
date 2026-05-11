@@ -1,4 +1,5 @@
-import isEqualBy from '../../compare/isEqualBy';
+import type { LooseRecord } from '@niche-works/types';
+import updateMutable from '../updateMutable';
 import type { UpdateOptions } from './types';
 
 /**
@@ -9,21 +10,13 @@ import type { UpdateOptions } from './types';
  * @param options オプション
  * @returns 更新されたキーと以前の値
  */
-export default function update<T extends Record<PropertyKey, unknown>>(
+export default function update<T extends LooseRecord>(
   object: T,
   values: Partial<T>,
   options?: UpdateOptions,
 ): Partial<T> {
-  const oldValues: Partial<T> = {};
-  for (const key in values) {
-    if (Object.hasOwn(values, key)) {
-      const value = values[key];
-      const oldValue = object[key];
-      if (!isEqualBy(oldValue, value, options)) {
-        object[key] = value;
-        oldValues[key] = oldValue;
-      }
-    }
+  if (object && values) {
+    return updateMutable({ ...object }, values, options);
   }
-  return oldValues;
+  return {};
 }

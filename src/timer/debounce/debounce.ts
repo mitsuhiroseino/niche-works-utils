@@ -16,6 +16,7 @@ export default function debounce<ARGS extends unknown[]>(
   const debouncedFn = R.funnel((args: ARGS) => fn(...args), {
     reducer: (_, ...args: ARGS) => args,
     minQuietPeriodMs: wait,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     triggerAt: triggerAt as any,
   });
 

@@ -6,6 +6,11 @@ import recaseScreamingSnake from '../recaseScreamingSnake';
 import recaseSnake from '../recaseSnake';
 import recaseTitle from '../recaseTitle';
 import recaseUpper from '../recaseUpper';
+import retypeToNfc from '../retypeToNfc';
+import retypeToNfd from '../retypeToNfd';
+import retypeToNfkc from '../retypeToNfkc';
+import retypeToNfkd from '../retypeToNfkd';
+
 import {
   toFullWidth,
   toFullWidthAlphabet,
@@ -74,6 +79,10 @@ export const TransformationType = {
   toSnakeCase: 'to-snake-case',
   toTitleCase: 'to-title-case',
   toUpperCase: 'to-upper-case',
+  toNfc: 'to-nfc',
+  toNfd: 'to-nfd',
+  toNfkc: 'to-nfkc',
+  ToNfkd: 'to-nfkd',
 } as const;
 
 export type TransformationType =
@@ -116,4 +125,8 @@ export const TransformFunction = {
   toSnakeCase: recaseSnake,
   toTitleCase: recaseTitle,
   toUpperCase: recaseUpper,
+  toNfc: retypeToNfc,
+  toNfd: retypeToNfd,
+  toNfkc: retypeToNfkc,
+  ToNfkd: retypeToNfkd,
 } as const;

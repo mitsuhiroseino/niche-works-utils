@@ -2,21 +2,21 @@ import isSurroundedBy from './isSurroundedBy';
 
 describe('isSurroundedBy', () => {
   describe('prefix === suffix', () => {
-    test('true', () => {
+    it('true', () => {
       const result = isSurroundedBy('"abc"', '"');
       expect(result).toBe(true);
     });
-    test('false', () => {
+    it('false', () => {
       const result = isSurroundedBy('"abc"', "'");
       expect(result).toBe(false);
     });
   });
   describe('prefix !== suffix', () => {
-    test('true', () => {
+    it('true', () => {
       const result = isSurroundedBy('{abc}', '{', '}');
       expect(result).toBe(true);
     });
-    test('false', () => {
+    it('false', () => {
       const result = isSurroundedBy('[abc]', '{', '}');
       expect(result).toBe(false);
     });

@@ -1,4 +1,5 @@
-import forEachValues from '../forEachValues';
+import type { LooseRecord } from '@niche-works/types';
+import maybeAssignMutable from '../maybeAssignMutable';
 import type { MaybeAssignOptions } from './types';
 
 /**
@@ -9,23 +10,11 @@ import type { MaybeAssignOptions } from './types';
  * @returns
  */
 export default function maybeAssign<
-  T extends object = {},
-  V extends object = {},
+  T extends LooseRecord,
+  V extends LooseRecord,
 >(target: T, values: V, options: MaybeAssignOptions = {}): T & V {
   if (target && values) {
-    const { skipNull, ...opts } = options;
-    const isValidValue = skipNull
-      ? (value) => value != null
-      : (value) => value !== undefined;
-    forEachValues(
-      values,
-      (value, key) => {
-        if (isValidValue(value)) {
-          target[key] = value;
-        }
-      },
-      opts,
-    );
+    return maybeAssignMutable({ ...target }, values, options);
   }
   return target as T & V;
 }

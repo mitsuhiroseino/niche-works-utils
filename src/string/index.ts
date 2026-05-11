@@ -1,12 +1,14 @@
 export { default as createExtractor } from './createExtractor';
 export { default as ensureString } from './ensureString';
 export { default as escapeRegExp } from './escapeRegExp';
-export { default as fold } from './fold';
 export { default as interpolateString } from './interpolateString';
+export { default as isFullWidth } from './isFullWidth';
+export { default as isHalfWidth } from './isHalfWidth';
 export { default as isLooseEqual } from './isLooseEqual';
 export { default as isSurroundedBy } from './isSurroundedBy';
 export { default as lowerFirst } from './lowerFirst';
 export { default as maybeReplace } from './maybeReplace';
+export { default as normalizeString } from './normalizeString';
 export { default as recaseCamel } from './recaseCamel';
 export { default as recaseKebab } from './recaseKebab';
 export { default as recaseLower } from './recaseLower';

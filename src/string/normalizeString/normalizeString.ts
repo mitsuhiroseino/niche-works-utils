@@ -1,19 +1,24 @@
 import transformString from '../transformString';
 import { TransformationType } from '../transformString/constants';
-import type { FoldOptions } from './types';
+import type { NormalizeStringOptions } from './types';
 
 /**
- * 文字列の表記揺れを折りたたみ、比較可能な形に整える
+ * 文字列の表記揺れを無くし、比較可能な形に整える
  * @param value 文字列
  * @param options オプション
  * @returns 整えられた文字列
  */
-export default function fold(value: string, options: FoldOptions = {}): string {
+export default function normalizeString(
+  value: string,
+  options: NormalizeStringOptions = {},
+): string {
   if (value) {
     // 文字列あり
     const {
-      ignoreCase,
+      ignoreCompatibility,
+      ignoreComposition,
       ingoreWidth,
+      ignoreCase,
       ignoreKana,
       ignoreDakuon,
       ignoreSokuon,
@@ -24,9 +29,18 @@ export default function fold(value: string, options: FoldOptions = {}): string {
     } = options;
     const transformationTypes: TransformationType[] = [];
 
-    if (ingoreWidth) {
-      // 半角・全角の違いを無視する
-      transformationTypes.push(TransformationType.toHalfWidtn);
+    if (ignoreCompatibility) {
+      // 合成&互換文字の違いを無視する
+      transformationTypes.push(TransformationType.toNfkc);
+    } else {
+      if (ignoreComposition) {
+        // 合成の違いを無視する
+        transformationTypes.push(TransformationType.toNfc);
+      }
+      if (ingoreWidth) {
+        // 半角・全角の違いを無視する
+        transformationTypes.push(TransformationType.toHalfWidtn);
+      }
     }
 
     if (ignoreCase) {

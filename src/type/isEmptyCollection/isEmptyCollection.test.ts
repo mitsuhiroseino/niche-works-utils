@@ -1,44 +1,44 @@
 import isEmptyCollection from './isEmptyCollection';
 
 describe('isEmptyCollection', () => {
-  test('undefined', () => {
+  it('undefined', () => {
     const result = isEmptyCollection(undefined);
     expect(result).toBe(true);
   });
 
-  test('null', () => {
+  it('null', () => {
     const result = isEmptyCollection(null);
     expect(result).toBe(true);
   });
 
-  test('空配列', () => {
+  it('空配列', () => {
     const result = isEmptyCollection([]);
     expect(result).toBe(true);
   });
 
-  test('非空配列', () => {
+  it('非空配列', () => {
     const result = isEmptyCollection([1, 2, 3]);
     expect(result).toBe(false);
   });
 
-  test('空Set', () => {
+  it('空Set', () => {
     const result = isEmptyCollection(new Set());
     expect(result).toBe(true);
   });
 
-  test('非空Set', () => {
+  it('非空Set', () => {
     const set = new Set();
     set.add(1);
     const result = isEmptyCollection(set);
     expect(result).toBe(false);
   });
 
-  test('空Map', () => {
+  it('空Map', () => {
     const result = isEmptyCollection(new Map());
     expect(result).toBe(true);
   });
 
-  test('非空Map', () => {
+  it('非空Map', () => {
     const map = new Map();
     map.set('key', 'value');
     const result = isEmptyCollection(map);

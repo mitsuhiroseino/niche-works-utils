@@ -3,11 +3,11 @@
  * 明示的に結果を返さない(undefined)場合は、デフォルトの再帰比較が行われる
  */
 type Customizer = (
-  value1: any,
-  value2: any,
+  value1: unknown,
+  value2: unknown,
   indexOrKey?: PropertyKey | undefined,
-  value1Parent?: any,
-  value2Parent?: any,
+  value1Parent?: unknown,
+  value2Parent?: unknown,
 ) => boolean | undefined;
 
 /**
@@ -15,12 +15,12 @@ type Customizer = (
  * customizerを渡すことで、特定の型やプロパティの比較ロジックをカスタマイズできる
  */
 export default function isEqualWith(
-  value: any,
-  other: any,
+  value: unknown,
+  other: unknown,
   customizer: Customizer,
   key?: string | number,
-  parent?: any,
-  otherParent?: any,
+  parent?: unknown,
+  otherParent?: unknown,
 ): boolean {
   const result = customizer(value, other, key, parent, otherParent);
   if (result !== undefined) {

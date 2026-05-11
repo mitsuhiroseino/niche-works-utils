@@ -1,3 +1,4 @@
+import type { LooseRecord } from '@niche-works/types';
 import * as R from 'remeda';
 import get from '../get';
 import setMutable from '../setMutable';
@@ -8,8 +9,8 @@ import type { MappingRule, TransformObjectOptions } from './types';
  * 指定されたルールに従ってオブジェクトの構造を変換・抽出する
  */
 export default function transformObject<
-  T extends object = any,
-  S extends object = any,
+  T extends LooseRecord = LooseRecord,
+  S extends LooseRecord = LooseRecord,
 >(
   source: S,
   rules: (string | MappingRule<S, T>)[],
@@ -23,8 +24,8 @@ export default function transformObject<
   }
 
   for (const rule of rules) {
-    let fromPath: string | ((s: S) => any);
-    let toPath: string | ((t: T, v: any) => T);
+    let fromPath: string | ((s: S) => unknown);
+    let toPath: string | ((t: T, v: unknown) => T);
     let specificDelete: boolean | undefined;
 
     // ルールの正規化
@@ -36,7 +37,7 @@ export default function transformObject<
       specificDelete = rule.shouldRemoveFromSource;
     }
 
-    let value: any;
+    let value: unknown;
 
     // 値の抽出
     if (R.isString(fromPath)) {

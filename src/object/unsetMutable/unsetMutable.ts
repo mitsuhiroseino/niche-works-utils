@@ -1,3 +1,4 @@
+import type { LooseRecord } from '@niche-works/types';
 import _createContainer from '../../_internal/_createContainer';
 import _parsePath from '../../_internal/_parsePath';
 
@@ -7,22 +8,23 @@ import _parsePath from '../../_internal/_parsePath';
  * @param path 削除するプロパティのパス（例: 'a.b.0' または ['a', 'b', 0]）
  * @returns 削除された同じオブジェクト
  */
-const unsetMutable = <T extends object>(
+const unsetMutable = <T extends LooseRecord>(
   data: T,
   path: string | PropertyKey[],
 ) => _unsetMutable(data, path);
 unsetMutable.dataLast =
-  <T extends object>(path: string | PropertyKey[]) =>
+  <T extends LooseRecord>(path: string | PropertyKey[]) =>
   (data: T) =>
     _unsetMutable(data, path);
 export default unsetMutable;
 
-function _unsetMutable<T extends object>(
+function _unsetMutable<T extends LooseRecord>(
   data: T,
   path: string | PropertyKey[],
 ): T {
   const segments = _parsePath(path);
   const length = segments.length;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let current: any = data;
 
   for (let i = 0; i < length; i++) {

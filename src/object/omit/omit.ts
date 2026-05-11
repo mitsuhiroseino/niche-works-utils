@@ -19,6 +19,7 @@ function _omit<T, R = unknown>(
     return undefined;
   }
   const keys = _parsePath(path);
-  // @ts-ignore
-  return R.omit(data, ...keys);
+  // R.omit は動的なキー配列をスプレッドする型定義を持たないため
+  // asで今回の利用方法に合った型を定義する
+  return (R.omit as (...args: unknown[]) => R | undefined)(data, ...keys);
 }

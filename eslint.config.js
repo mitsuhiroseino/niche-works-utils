@@ -1,39 +1,43 @@
 import js from '@eslint/js';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
+import tseslint from 'typescript-eslint';
 
-export default [
+export default tseslint.config(
   {
     files: ['src/**/*.ts'],
+    extends: [js.configs.recommended, tseslint.configs.recommended],
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
         project: './tsconfig.json',
       },
       // browserもnodeも有効にしない
       globals: {},
     },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
     rules: {
-      ...tsPlugin.configs['recommended'].rules,
+      // 基本はerror
       '@typescript-eslint/no-explicit-any': 'error',
+      // prefix付は使ってなくても許容
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
     },
   },
-
   {
     files: ['src/type/unsafeCast/unsafeCast.ts'],
     rules: {
+      // 特定のファイルはwarn
       '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
-
-  // テストコードは緩める
   {
     files: ['**/*.test.ts'],
     rules: {
+      // テストコードはoff
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
-];
+);

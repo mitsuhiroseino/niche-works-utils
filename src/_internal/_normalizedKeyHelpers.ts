@@ -1,8 +1,10 @@
-import type { FoldOptions } from '../string/fold';
-import fold from '../string/fold';
+import type { NormalizeStringOptions } from '../string/normalizeString';
+import normalizeString from '../string/normalizeString';
 import TransformedKeyManager from './_TransformedKeyManager';
 
-const manager = new TransformedKeyManager<FoldOptions>(fold);
+const manager = new TransformedKeyManager<NormalizeStringOptions>(
+  normalizeString,
+);
 
 /**
  * 変換前のキーから主となる変換前のキーを取得
@@ -14,7 +16,7 @@ const manager = new TransformedKeyManager<FoldOptions>(fold);
 export function _resolveOriginalKey(
   originalKey: string,
   data: object,
-  options?: FoldOptions,
+  options?: NormalizeStringOptions,
 ): string | undefined {
   return manager.resolveOriginalKey(originalKey, data, options);
 }
@@ -29,7 +31,7 @@ export function _resolveOriginalKey(
 export function _getOriginalKey(
   transformedKey: string,
   data: object,
-  options?: FoldOptions,
+  options?: NormalizeStringOptions,
 ): string | undefined {
   return manager.getOriginalKey(transformedKey, data, options);
 }
@@ -44,7 +46,7 @@ export function _getOriginalKey(
 export function _getTransformedKey(
   originalKey: string,
   data: object,
-  options?: FoldOptions,
+  options?: NormalizeStringOptions,
 ): string {
   return manager.getTransformedKey(originalKey, data, options);
 }
@@ -59,7 +61,7 @@ export function _getTransformedKey(
 export function _deleteOriginalKey(
   originalKey: string,
   data: object,
-  options?: FoldOptions,
+  options?: NormalizeStringOptions,
 ): string | undefined {
   return manager.deleteOriginalKey(originalKey, data, options);
 }
@@ -74,7 +76,7 @@ export function _deleteOriginalKey(
 export function _deleteTransformedKey(
   transformedKey: string,
   data: object,
-  options?: FoldOptions,
+  options?: NormalizeStringOptions,
 ): string {
   return manager.deleteTransformedKey(transformedKey, data, options);
 }

@@ -1,14 +1,14 @@
 import replacePlaceholders from './replacePlaceholders';
 
 describe('replacePlaceholders', () => {
-  test('置換(オブジェクト)', () => {
+  it('置換(オブジェクト)', () => {
     const result = replacePlaceholders(
       '{{ABC}}DEFGHIJKL{{M}}NOPQRSTUVWX{{YZ}}',
       { ABC: '!!!', M: '?', YZ: '@@' },
     );
     expect(result).toBe('!!!DEFGHIJKL?NOPQRSTUVWX@@');
   });
-  test('置換(配列)', () => {
+  it('置換(配列)', () => {
     const result = replacePlaceholders('{{0}}DEFGHIJKL{{1}}NOPQRSTUVWX{{2}}', [
       '!!!',
       '?',
@@ -16,14 +16,14 @@ describe('replacePlaceholders', () => {
     ]);
     expect(result).toBe('!!!DEFGHIJKL?NOPQRSTUVWX@@');
   });
-  test('置換対象がない場合(デフォルト)', () => {
+  it('置換対象がない場合(デフォルト)', () => {
     const result = replacePlaceholders(
       '{{ABC}}DEFGHIJKL{{M}}NOPQRSTUVWX{{YZ}}',
       { B: '_', M: '?', YZ: '@@' },
     );
     expect(result).toBe('{{ABC}}DEFGHIJKL?NOPQRSTUVWX@@');
   });
-  test('置換対象がない場合(プレイスホルダーは削除)', () => {
+  it('置換対象がない場合(プレイスホルダーは削除)', () => {
     const result = replacePlaceholders(
       '{{ABC}}DEFGHIJKL{{M}}NOPQRSTUVWX{{YZ}}',
       { B: '_', M: '?', YZ: '@@' },
@@ -31,7 +31,7 @@ describe('replacePlaceholders', () => {
     );
     expect(result).toBe('DEFGHIJKL?NOPQRSTUVWX@@');
   });
-  test('任意の括り文字', () => {
+  it('任意の括り文字', () => {
     const result = replacePlaceholders(
       '{{ABC}}DEFGHIJKL*[M]*NOPQRSTUVWX*[YZ]*',
       { ABC: '!!!', M: '?', YZ: '@@' },

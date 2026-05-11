@@ -43,14 +43,14 @@ function _ensureValidValue<T = unknown>(
     // 型の指定あり
     // 型の判定
     const type = kind(data);
-    const { validType = KindType.ANY } = options;
+    const { validType = KindType.any } = options;
     if (type === validType) {
       // 指定の型だった場合
       return data as T;
     } else if (type === KindType.UNDEFINED && 'undefinedValue' in options) {
       // undefinedの場合の代替値
       return options.undefinedValue as T;
-    } else if (type === KindType.NULL && 'nullValue' in options) {
+    } else if (type === KindType.null && 'nullValue' in options) {
       // nullの場合の代替値
       return options.nullValue as T;
     } else if ('defaultValue' in options) {

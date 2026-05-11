@@ -4,15 +4,15 @@ import type { AsArrayOptions } from './types';
  * 対象を配列として見なして変換する。
  * 文字列以外のIterableなオブジェクトは展開し、それ以外は配列で包む。
  */
-const asArray = <T>(data: any, options: AsArrayOptions = {}): T[] =>
+const asArray = <T>(data: unknown, options: AsArrayOptions = {}): T[] =>
   _asArray(data, options);
 asArray.dataLast =
   (options: AsArrayOptions = {}) =>
-  <T>(data: any): T[] =>
+  <T>(data: unknown): T[] =>
     _asArray(data, options);
 export default asArray;
 
-function _asArray<T>(data: any, options: AsArrayOptions = {}): T[] {
+function _asArray<T>(data: unknown, options: AsArrayOptions = {}): T[] {
   if (data == null) {
     return [];
   } else if (Array.isArray(data)) {

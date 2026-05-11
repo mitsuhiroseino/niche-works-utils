@@ -1,1 +1,1 @@
-export { COMPARE_MODE } from '../../compare/isEqualBy/constants';
+export * from '../updateMutable';

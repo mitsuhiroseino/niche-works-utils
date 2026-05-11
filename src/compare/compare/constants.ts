@@ -45,10 +45,14 @@ export const ComparisonStrategies = {
   [LOOSE_EQ]: (left, right) => left == right,
   // eslint-disable-next-line eqeqeq
   [LOOSE_NE]: (left, right) => left != right,
-  [BETWEEN]: (value, range: [any, any]) =>
-    Array.isArray(range) && value >= range[0] && value <= range[1],
-  [IN]: (value, list: any[]) => list.includes(value),
-  [LIKE]: (value: string, pattern: string) => value.includes(pattern),
+  [BETWEEN]: ((value, range: [unknown, unknown]) =>
+    Array.isArray(range) &&
+    value >= range[0] &&
+    value <= range[1]) as ComparisonStrategy,
+  [IN]: ((value, list: unknown[]) =>
+    list.includes(value)) as ComparisonStrategy,
+  [LIKE]: ((value: string, pattern: string) =>
+    value.includes(pattern)) as ComparisonStrategy,
 } as const satisfies Record<ComparisonOperator, ComparisonStrategy>;
 
 /**

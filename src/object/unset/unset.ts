@@ -1,3 +1,4 @@
+import type { LooseRecord } from '@niche-works/types';
 import _createContainer from '../../_internal/_createContainer';
 import _parsePath from '../../_internal/_parsePath';
 
@@ -8,18 +9,21 @@ import _parsePath from '../../_internal/_parsePath';
  * @param value 設定する値
  * @returns 更新された新しいオブジェクト
  */
-const unset = <T extends object>(data: T, path: string | PropertyKey[]) =>
+const unset = <T extends LooseRecord>(data: T, path: string | PropertyKey[]) =>
   _unset(data, path);
 unset.dataLast =
-  <T extends object>(path: string | PropertyKey[]) =>
+  <T extends LooseRecord>(path: string | PropertyKey[]) =>
   (data: T) =>
     _unset(data, path);
 export default unset;
 
-function _unset<T extends object>(data: T, path: string | PropertyKey[]): T {
+function _unset<T extends LooseRecord>(
+  data: T,
+  path: string | PropertyKey[],
+): T {
   const segments = _parsePath(path);
 
-  const unsetter = (current: any, index: number): any => {
+  const unsetter = (current: unknown, index: number): unknown => {
     const key = segments[index];
 
     // 値が存在しない、またはプリミティブな値に到達した場合はそのまま返す
@@ -36,7 +40,7 @@ function _unset<T extends object>(data: T, path: string | PropertyKey[]): T {
         return next;
       } else {
         // オブジェクトの場合はプロパティを除外
-        const { [key as any]: _, ...next } = current;
+        const { [key]: _, ...next } = current as LooseRecord;
         return next;
       }
     }
@@ -51,7 +55,7 @@ function _unset<T extends object>(data: T, path: string | PropertyKey[]): T {
     } else if (Array.isArray(current)) {
       // 直下に変更あり(配列)
       const next = [...current];
-      next[key as any] = newValue;
+      next[key] = newValue;
       return next;
     } else {
       // 直下に変更あり(オブジェクト)
@@ -59,5 +63,5 @@ function _unset<T extends object>(data: T, path: string | PropertyKey[]): T {
     }
   };
 
-  return unsetter(data, 0);
+  return unsetter(data, 0) as T;
 }

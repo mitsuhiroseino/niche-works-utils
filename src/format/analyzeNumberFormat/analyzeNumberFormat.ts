@@ -78,7 +78,7 @@ export default function analyzeNumberFormat(
  * @param token パターントークン
  * @returns
  */
-function getXfix(token: any): string | undefined {
+function getXfix(token: unknown): string | undefined {
   return Array.isArray(token) ? token.join('') : undefined;
 }
 
@@ -108,7 +108,7 @@ function tokenizeFormat(format: string, regex: RegExp): NumberFormatPattern {
         result.push(token);
       }
       return result;
-    }, [] as any);
+    }, [] satisfies NumberFormatPattern);
   } else {
     // マッチするもの無し
     return [];

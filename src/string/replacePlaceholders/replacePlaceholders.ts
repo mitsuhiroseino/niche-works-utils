@@ -1,15 +1,16 @@
+import type { LooseDictionary } from '@niche-works/types';
 import get from '../../object/get';
 import escapeRegExp from '../escapeRegExp';
 import type { ReplacePlaceholdersOptions } from './types';
 
-const getShallow = (values: any, key: string) => values[key];
+const getShallow = (values: unknown, key: string) => values[key];
 
 /**
  * テンプレート内のプレイスホルダーを指定された値で置換する
  */
 export default function replacePlaceholders(
   template: string,
-  values: Record<string, any> | any[],
+  values: LooseDictionary | unknown[],
   options: ReplacePlaceholdersOptions = {},
 ): string {
   const {

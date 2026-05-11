@@ -12,11 +12,12 @@ export default function throttle<ARGS extends unknown[]>(
   wait: number,
   options: ThrottleOptions = {},
 ): ThrottleResult<ARGS> {
-  const { triggerAt = 'end' } = options;
+  const { triggerAt = 'both' } = options;
   const throttledFn = R.funnel((args: ARGS) => fn(...args), {
     reducer: (_, ...args: ARGS) => args,
     minQuietPeriodMs: wait,
     maxBurstDurationMs: wait,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     triggerAt: triggerAt as any,
   });
 

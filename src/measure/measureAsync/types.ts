@@ -3,9 +3,10 @@ import type { MeasureOptions, MeasureReturnValue } from '../measure';
 /**
  * measureAsync関数のオプション
  */
-export type MeasureAsyncOptions<A extends any[] = any[]> = MeasureOptions<A>;
+export type MeasureAsyncOptions<A extends unknown[] = unknown[]> =
+  MeasureOptions<A>;
 
 /**
  * measureAsync関数の戻り値
  */
-export type MeasureAsyncReturnValue<R = any> = MeasureReturnValue<R>;
+export type MeasureAsyncReturnValue<R = unknown> = MeasureReturnValue<R>;

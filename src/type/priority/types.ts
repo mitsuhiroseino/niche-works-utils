@@ -1,24 +1,20 @@
+import type { TypeOfResult } from '@niche-works/constants';
 import type { KindType } from '../../type/kind';
 
 export type PriorityOptions = {
   /**
-   * objectの詳細な型を取得するか\
-   * デフォルトはfalse
+   * objectの詳細な型を取得するか
+   *
+   * @default false
    */
   kind?: boolean;
 
   /**
-   * 優先度のマップ\
-   * デフォルトは以下の通り
+   * 優先度のマップ
    *
-   * ```ts
-   * {
-   *   undefined: -2,
-   *   null: -1,
-   * }
-   * ```
+   * @default { undefined: -2, null: -1 }
    */
-  priorityMap?: Record<KindType, number>;
+  priorityMap?: Record<KindType | TypeOfResult, number>;
 
   /**
    * 優先順位を解決する関数\

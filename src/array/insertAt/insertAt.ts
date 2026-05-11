@@ -13,8 +13,8 @@ const insertAt = <T>(
   options?: InsertAtOptions,
 ): T[] => _insertAt(data, index, items, options);
 insertAt.dataLast =
-  (index: number, items: any[], options?: InsertAtOptions) =>
-  <T>(data: T[]) =>
+  <I>(index: number, items: I[], options?: InsertAtOptions) =>
+  (data: I[]) =>
     _insertAt(data, index, items, options);
 export default insertAt;
 

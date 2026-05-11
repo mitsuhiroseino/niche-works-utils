@@ -13,8 +13,8 @@ import type {
  * @returns
  */
 export default function comparePerformance<
-  A extends Array<unknown> = Array<unknown>,
-  R = any,
+  A extends unknown[] = unknown[],
+  R = unknown,
 >(agenda: MeasurementAgenda<A>): MeasurementResult<A, R> {
   // 開始日時
   const start = new Date(),

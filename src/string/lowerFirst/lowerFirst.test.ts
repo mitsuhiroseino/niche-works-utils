@@ -1,23 +1,23 @@
 import lowerFirst from './lowerFirst';
 
 describe('lowerFirst', () => {
-  test('先頭小文字', () => {
+  it('先頭小文字', () => {
     const result = lowerFirst('abc');
     expect(result).toBe('abc');
   });
-  test('先頭大文字', () => {
+  it('先頭大文字', () => {
     const result = lowerFirst('Abc');
     expect(result).toBe('abc');
   });
-  test('1文字', () => {
+  it('1文字', () => {
     const result = lowerFirst('A');
     expect(result).toBe('a');
   });
-  test('空文字', () => {
+  it('空文字', () => {
     const result = lowerFirst('');
     expect(result).toBe('');
   });
-  test('null', () => {
+  it('null', () => {
     const result = lowerFirst(null as any);
     expect(result).toBe(null);
   });

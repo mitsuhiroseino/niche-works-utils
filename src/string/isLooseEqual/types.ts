@@ -1,9 +1,9 @@
-import type { FoldOptions } from '../fold';
+import type { NormalizeStringOptions } from '../normalizeString';
 
 /**
  * オプション
  */
-export type IsLooseEqualOptions = FoldOptions & {
+export type IsLooseEqualOptions = NormalizeStringOptions & {
   /**
    * 値1の正規化を行わない
    */

@@ -1,47 +1,47 @@
 import ensureString from './ensureString';
 
 describe('ensureString', () => {
-  test('文字列', () => {
+  it('文字列', () => {
     const result = ensureString('Abc');
     expect(result).toBe('Abc');
   });
 
-  test('null', () => {
+  it('null', () => {
     const result = ensureString(null);
     expect(result).toBe('');
   });
 
-  test('undefined', () => {
+  it('undefined', () => {
     const result = ensureString(undefined);
     expect(result).toBe('');
   });
 
-  test('空文字', () => {
+  it('空文字', () => {
     const result = ensureString('');
     expect(result).toBe('');
   });
 
-  test('数値', () => {
+  it('数値', () => {
     const result = ensureString(123);
     expect(result).toBe('123');
   });
 
-  test('真偽値', () => {
+  it('真偽値', () => {
     const result = ensureString(true);
     expect(result).toBe('true');
   });
 
-  test('日時', () => {
+  it('日時', () => {
     const result = ensureString(new Date(1999, 0, 2, 3, 40, 56, 789));
     expect(result).toBe('Sat Jan 02 1999 03:40:56 GMT+0900 (日本標準時)');
   });
 
-  test('オブジェクト', () => {
+  it('オブジェクト', () => {
     const result = ensureString({});
     expect(result).toBe('[object Object]');
   });
 
-  test('配列', () => {
+  it('配列', () => {
     const result = ensureString(['a', 'b', 'c']);
     expect(result).toBe('a,b,c');
   });

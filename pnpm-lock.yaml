@@ -12,8 +12,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       '@niche-works/types':
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^0.3.1
+        version: 0.3.1
       big.js:
         specifier: ^6.2.2
         version: 6.2.2
@@ -78,6 +78,9 @@ importers:
       typescript:
         specifier: ^6.0.2
         version: 6.0.2
+      typescript-eslint:
+        specifier: ^8.59.2
+        version: 8.59.2(eslint@10.3.0)(typescript@6.0.2)
       vitest:
         specifier: ^4.1.5
         version: 4.1.5(@types/node@25.5.0)(@vitest/coverage-v8@4.1.5)(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.0)(esbuild@0.27.4)(sass@1.99.0)(tsx@4.21.0))
@@ -380,8 +383,8 @@ packages:
     peerDependencies:
       rollup: ^4.0.0
 
-  '@niche-works/types@0.3.0':
-    resolution: {integrity: sha512-4cotz/0K8lOS2qD0W46Pj0P3+qG++ZTLVj+9PREQh1kWI8VFeFPuQlmdowMdE3JB5etsb7yWA3SUIlxCyRa27Q==}
+  '@niche-works/types@0.3.1':
+    resolution: {integrity: sha512-nzUQeSr4wsgdEAfBJR3ix70Vup74nrd/uTr0R1NxKVx4d3fjm/bDb2iyZwPU0IDHzRPglnV3ev2hTi3U7wSUjw==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1757,6 +1760,13 @@ packages:
     resolution: {integrity: sha512-8ZiHFm91orbSAe2PSAiSVBVko18pbhbiB3U9GglSzF/zCGkR+rxpHx6sEMCUm4kxY4LjDIUGgCfUMtwfZfjfUA==}
     engines: {node: '>=20'}
 
+  typescript-eslint@8.59.2:
+    resolution: {integrity: sha512-pJw051uomb3ZeCzGTpRb8RbEqB5Y4WWet8gl/GcTlU35BSx0PVdZ86/bqkQCyKKuraVQEK7r6kBHQXF+fBhkoQ==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
+      typescript: '>=4.8.4 <6.1.0'
+
   typescript@6.0.2:
     resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
     engines: {node: '>=14.17'}
@@ -2116,7 +2126,7 @@ snapshots:
       sort-package-json: 3.6.1
       tslib: 2.8.1
 
-  '@niche-works/types@0.3.0':
+  '@niche-works/types@0.3.1':
     dependencies:
       type-fest: 5.6.0
 
@@ -3351,6 +3361,17 @@ snapshots:
   type-fest@5.6.0:
     dependencies:
       tagged-tag: 1.0.0
+
+  typescript-eslint@8.59.2(eslint@10.3.0)(typescript@6.0.2):
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.3.0)(typescript@6.0.2))(eslint@10.3.0)(typescript@6.0.2)
+      '@typescript-eslint/parser': 8.59.2(eslint@10.3.0)(typescript@6.0.2)
+      '@typescript-eslint/typescript-estree': 8.59.2(typescript@6.0.2)
+      '@typescript-eslint/utils': 8.59.2(eslint@10.3.0)(typescript@6.0.2)
+      eslint: 10.3.0
+      typescript: 6.0.2
+    transitivePeerDependencies:
+      - supports-color
 
   typescript@6.0.2: {}
 

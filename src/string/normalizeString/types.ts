@@ -1,7 +1,7 @@
 /**
  * オプション
  */
-export type FoldOptions = {
+export type NormalizeStringOptions = {
   /**
    * 値がnullの場合に置き換える値
    */
@@ -13,14 +13,24 @@ export type FoldOptions = {
   undefinedValue?: string;
 
   /**
-   * 英字の大文字・小文字の違いを無視する
+   * 合成&互換文字の違いを無視する
    */
-  ignoreCase?: boolean;
+  ignoreCompatibility?: boolean;
+
+  /**
+   * 合成の違いを無視する
+   */
+  ignoreComposition?: boolean;
 
   /**
    * 半角・全角の違いを無視する
    */
   ingoreWidth?: boolean;
+
+  /**
+   * 英字の大文字・小文字の違いを無視する
+   */
+  ignoreCase?: boolean;
 
   /**
    * ひらがな・カタカナの違いを無視する

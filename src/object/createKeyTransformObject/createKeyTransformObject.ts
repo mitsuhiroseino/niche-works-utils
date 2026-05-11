@@ -34,7 +34,7 @@ export default function createKeyTransformObject<T extends object>(
   const has = includeInherited
     ? () => true
     : (object, key) => Object.hasOwn(object, key);
-  const initialValues: T = {} as any;
+  const initialValues: Partial<T> = {};
   for (const key in targetObject) {
     if (has(targetObject, key)) {
       initialValues[key] = targetObject[key];

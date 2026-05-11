@@ -13,8 +13,8 @@ import type {
  * @returns
  */
 export default async function comparePerformanceAsync<
-  A extends Array<unknown> = Array<unknown>,
-  R = any,
+  A extends unknown[] = unknown[],
+  R = unknown,
 >(agenda: MeasurementAsyncAgenda<A>): Promise<MeasurementAsyncResult<A, R>> {
   // 開始日時
   const start = new Date(),
