@@ -14,7 +14,21 @@ type Customizer = (
  * 2つの値が等しいかどうかを深く比較する
  * customizerを渡すことで、特定の型やプロパティの比較ロジックをカスタマイズできる
  */
-export default function isEqualWith(
+const isEqualWith = (
+  value: unknown,
+  other: unknown,
+  customizer: Customizer,
+  key?: string | number,
+  parent?: unknown,
+  otherParent?: unknown,
+): boolean => _isEqualWith(value, other, customizer, key, parent, otherParent);
+isEqualWith.dataLast =
+  (other: unknown, customizer: Customizer) =>
+  (value: unknown): boolean =>
+    _isEqualWith(value, other, customizer);
+export default isEqualWith;
+
+function _isEqualWith(
   value: unknown,
   other: unknown,
   customizer: Customizer,
@@ -32,9 +46,11 @@ export default function isEqualWith(
   }
 
   if (Array.isArray(value) && Array.isArray(other)) {
-    if (value.length !== other.length) return false;
+    if (value.length !== other.length) {
+      return false;
+    }
     for (let i = 0; i < value.length; i++) {
-      if (!isEqualWith(value[i], other[i], customizer, i, value, other)) {
+      if (!_isEqualWith(value[i], other[i], customizer, i, value, other)) {
         return false;
       }
     }
@@ -62,7 +78,7 @@ export default function isEqualWith(
       if (!Object.hasOwn(other, k)) {
         return false;
       }
-      if (!isEqualWith(value[k], other[k], customizer, k, value, other)) {
+      if (!_isEqualWith(value[k], other[k], customizer, k, value, other)) {
         return false;
       }
     }

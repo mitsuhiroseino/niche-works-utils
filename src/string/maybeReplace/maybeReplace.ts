@@ -15,9 +15,23 @@ import type {
  * @param options patternが関数の場合に引数として渡すオプション
  * @returns
  */
-export default function maybeReplace<
-  O extends MaybeReplaceOptions = MaybeReplaceOptions,
->(
+const maybeReplace = <O extends MaybeReplaceOptions = MaybeReplaceOptions>(
+  str: string | null | undefined,
+  pattern: FlexiblePattern,
+  replacement: string | ((substring: string, ...args: unknown[]) => string),
+  options?: O,
+) => _maybeReplace(str, pattern, replacement, options);
+maybeReplace.dataLast =
+  <O extends MaybeReplaceOptions = MaybeReplaceOptions>(
+    pattern: FlexiblePattern,
+    replacement: string | ((substring: string, ...args: unknown[]) => string),
+    options?: O,
+  ) =>
+  (str: string | null | undefined) =>
+    _maybeReplace(str, pattern, replacement, options);
+export default maybeReplace;
+
+function _maybeReplace<O extends MaybeReplaceOptions = MaybeReplaceOptions>(
   str: string | null | undefined,
   pattern: FlexiblePattern,
   replacement: string | ((substring: string, ...args: unknown[]) => string),
@@ -32,7 +46,7 @@ export default function maybeReplace<
       return str.replace(pattern, unsafeCast(replacement));
     } else if (R.isFunction(pattern)) {
       // パターンが関数の場合
-      return maybeReplace(
+      return _maybeReplace(
         str,
         (pattern as DynamicPattern)(options),
         replacement,

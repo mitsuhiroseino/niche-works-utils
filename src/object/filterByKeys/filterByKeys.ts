@@ -12,7 +12,18 @@ import type { FilterByKeysOptions } from './types';
  * @param options
  * @returns
  */
-export default function filterByKeys<T = unknown>(
+const filterByKeys = <T = unknown>(
+  target: T,
+  condition: PropertyKey,
+  options: FilterByKeysOptions = {},
+): T => _filterByKeys(target, condition, options);
+filterByKeys.dataLast =
+  (condition: PropertyKey, options: FilterByKeysOptions = {}) =>
+  <T = unknown>(target: T): T =>
+    _filterByKeys(target, condition, options);
+export default filterByKeys;
+
+function _filterByKeys<T = unknown>(
   target: T,
   condition: PropertyKey,
   options: FilterByKeysOptions = {},

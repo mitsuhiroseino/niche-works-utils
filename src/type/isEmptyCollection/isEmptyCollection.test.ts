@@ -44,4 +44,12 @@ describe('isEmptyCollection', () => {
     const result = isEmptyCollection(map);
     expect(result).toBe(false);
   });
+
+  it('プレーンオブジェクトはfalseを返す', () => {
+    expect(isEmptyCollection({})).toBe(false);
+  });
+
+  it('数値はfalseを返す', () => {
+    expect(isEmptyCollection(42)).toBe(false);
+  });
 });

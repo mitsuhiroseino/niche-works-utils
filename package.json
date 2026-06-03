@@ -1,6 +1,6 @@
 {
   "name": "@niche-works/utils",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": true,
   "keywords": [
     "utils"
@@ -11,6 +11,7 @@
   },
   "license": "MIT",
   "author": "Mitsuhiro Seino",
+  "type": "module",
   "exports": {
     ".": "./src/index.ts",
     "./*": "./src/*/index.ts",
@@ -27,7 +28,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
     "indexes": "tsx scripts/indexes.ts",
     "test": "vitest",
-    "tidy": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" --config ./prettier.tidy.config.js"
+    "tidy": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" --config ./prettier.tidy.config.ts"
   },
   "dependencies": {
     "@niche-works/constants": "^0.1.3",

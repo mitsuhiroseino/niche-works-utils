@@ -5,6 +5,7 @@ import {
   _getTransformedKey,
   _resolveOriginalKey,
 } from '../../_internal/_normalizedKeyHelpers';
+import type { NormalizeStringOptions } from '../../string/normalizeString';
 import createKeyTransformObject from '../createKeyTransformObject';
 import type { CreateCaseInsensitiveObjectOptions } from './types';
 
@@ -22,8 +23,13 @@ export default function createCaseInsensitiveObject<
     includeInherited,
     isMutable,
     storedKeyType = 'transformed',
-    ...normalizeOptions
+    caseSensitive = false,
+    ...rest
   } = options;
+  const normalizeOptions: NormalizeStringOptions = {
+    ...rest,
+    ignoreCase: !caseSensitive,
+  };
   // オブジェクトに設定するキーの取得関数
   const transformKey = (data, key) => {
     if (R.isString(key)) {

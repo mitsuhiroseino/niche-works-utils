@@ -4,5 +4,14 @@ import type { CreateKeyTransformObjectOptionsBase } from '../createKeyTransformO
 /**
  * オプション
  */
-export type CreateCaseInsensitiveObjectOptions<T extends object> =
-  NormalizeStringOptions & CreateKeyTransformObjectOptionsBase<T>;
+export type CreateCaseInsensitiveObjectOptions<T extends object> = Omit<
+  NormalizeStringOptions,
+  'ignoreCase'
+> &
+  CreateKeyTransformObjectOptionsBase<T> & {
+    /**
+     * 大文字小文字を区別する
+     * @default false
+     */
+    caseSensitive?: boolean;
+  };

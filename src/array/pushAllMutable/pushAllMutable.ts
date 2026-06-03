@@ -15,7 +15,7 @@ export default pushAllMutable;
 
 function _pushAllMutable<T>(data: T[], source: T[]): T[] {
   if (data && source) {
-    return [...data, ...source];
+    data.push(...source);
   }
   return data;
 }

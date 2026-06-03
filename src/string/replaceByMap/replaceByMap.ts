@@ -9,7 +9,17 @@ import _createReplacer from '../_internal/_createReplacer';
  * @param map
  * @returns
  */
-export default function replaceByMap(
+const replaceByMap = (
+  str: string,
+  map: ReplacementMap | Record<string, string> | [string, string][],
+): string => _replaceByMap(str, map);
+replaceByMap.dataLast =
+  (map: ReplacementMap | Record<string, string> | [string, string][]) =>
+  (str: string): string =>
+    _replaceByMap(str, map);
+export default replaceByMap;
+
+function _replaceByMap(
   str: string,
   map: ReplacementMap | Record<string, string> | [string, string][],
 ): string {

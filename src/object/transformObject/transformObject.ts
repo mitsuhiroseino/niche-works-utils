@@ -8,7 +8,24 @@ import type { MappingRule, TransformObjectOptions } from './types';
 /**
  * 指定されたルールに従ってオブジェクトの構造を変換・抽出する
  */
-export default function transformObject<
+const transformObject = <
+  T extends LooseRecord = LooseRecord,
+  S extends LooseRecord = LooseRecord,
+>(
+  source: S,
+  rules: (string | MappingRule<S, T>)[],
+  options: TransformObjectOptions = {},
+): T => _transformObject(source, rules, options);
+transformObject.dataLast =
+  <T extends LooseRecord = LooseRecord, S extends LooseRecord = LooseRecord>(
+    rules: (string | MappingRule<S, T>)[],
+    options: TransformObjectOptions = {},
+  ) =>
+  (source: S): T =>
+    _transformObject(source, rules, options);
+export default transformObject;
+
+function _transformObject<
   T extends LooseRecord = LooseRecord,
   S extends LooseRecord = LooseRecord,
 >(

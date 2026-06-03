@@ -8,7 +8,7 @@ import type { NormalizeMinMaxOptions } from './types';
  * @param defaultMax maxがnull/undefinedの場合の代替値
  * @returns [最小値, 最大値]
  */
-export default function normalizeMinMax(
+export default function getValidMinMax(
   min: number | null | undefined,
   max: number | null | undefined,
   options: NormalizeMinMaxOptions = {},

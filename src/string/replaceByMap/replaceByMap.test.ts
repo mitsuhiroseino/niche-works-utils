@@ -46,4 +46,13 @@ describe('replaceByMap', () => {
     );
     expect(result).toBe('MYZDEFGHIJKL?NOPQRSTUVWX@@');
   });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      const result = replaceByMap.dataLast(new Map([['ABC', '!!!']]))(
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      );
+      expect(result).toBe('!!!DEFGHIJKLMNOPQRSTUVWXYZ');
+    });
+  });
 });

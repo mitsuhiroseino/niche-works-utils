@@ -77,4 +77,10 @@ describe('retypeToNfkc', () => {
       );
     });
   });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      expect(retypeToNfkc.dataLast()('ａｂｃ')).toBe('abc');
+    });
+  });
 });

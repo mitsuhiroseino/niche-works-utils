@@ -45,4 +45,10 @@ describe('ensureString', () => {
     const result = ensureString(['a', 'b', 'c']);
     expect(result).toBe('a,b,c');
   });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      expect(ensureString.dataLast()('abc')).toBe('abc');
+    });
+  });
 });

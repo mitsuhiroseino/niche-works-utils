@@ -55,4 +55,10 @@ describe('ensureNumber', () => {
     const result = ensureNumber(['a', 'b', 'c']);
     expect(result).toBe(0);
   });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      expect(ensureNumber.dataLast()(123)).toBe(123);
+    });
+  });
 });

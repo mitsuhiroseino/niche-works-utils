@@ -14,7 +14,7 @@ import type { RetypeToHalfWidthOptions } from './types';
  * @param str
  * @returns
  */
-export default function retypeToFullWidth(
+export default function retypeToHalfWidth(
   str: string,
   options: RetypeToHalfWidthOptions = {},
 ): string {

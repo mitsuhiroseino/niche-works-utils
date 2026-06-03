@@ -21,9 +21,14 @@ const RATIO = (1 + Math.sqrt(5)) / 2;
  * @param options
  * @returns
  */
-export default function fitToGolden(
-  value: number,
-  options?: FitToGoldenOptions,
-) {
+const fitToGolden = (value: number, options?: FitToGoldenOptions) =>
+  _fitToGolden(value, options);
+fitToGolden.dataLast =
+  (options?: FitToGoldenOptions) =>
+  (value: number) =>
+    _fitToGolden(value, options);
+export default fitToGolden;
+
+function _fitToGolden(value: number, options?: FitToGoldenOptions) {
   return fitToRatio(value, RATIO, options);
 }

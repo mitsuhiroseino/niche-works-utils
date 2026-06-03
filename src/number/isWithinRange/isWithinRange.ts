@@ -5,10 +5,17 @@
  * @param max 最大値
  * @returns 範囲内であれば true
  */
-export default function isWithinRange(
+const isWithinRange = (
   value: number,
   min: number,
   max: number,
-): boolean {
+): boolean => _isWithinRange(value, min, max);
+isWithinRange.dataLast =
+  (min: number, max: number) =>
+  (value: number): boolean =>
+    _isWithinRange(value, min, max);
+export default isWithinRange;
+
+function _isWithinRange(value: number, min: number, max: number): boolean {
   return value >= min && value <= max;
 }

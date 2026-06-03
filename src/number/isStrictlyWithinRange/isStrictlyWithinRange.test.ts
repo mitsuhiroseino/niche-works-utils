@@ -1,0 +1,33 @@
+import isStrictlyWithinRange from './isStrictlyWithinRange';
+
+describe('isStrictlyWithinRange', () => {
+  it('範囲内', () => {
+    expect(isStrictlyWithinRange(5, 0, 10)).toBe(true);
+  });
+
+  it('最小値ちょうど（境界を含まない）', () => {
+    expect(isStrictlyWithinRange(0, 0, 10)).toBe(false);
+  });
+
+  it('最大値ちょうど（境界を含まない）', () => {
+    expect(isStrictlyWithinRange(10, 0, 10)).toBe(false);
+  });
+
+  it('最小値より小さい', () => {
+    expect(isStrictlyWithinRange(-1, 0, 10)).toBe(false);
+  });
+
+  it('最大値より大きい', () => {
+    expect(isStrictlyWithinRange(11, 0, 10)).toBe(false);
+  });
+
+  it('最小値+εは範囲内', () => {
+    expect(isStrictlyWithinRange(0.001, 0, 10)).toBe(true);
+  });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      expect(isStrictlyWithinRange.dataLast(0, 10)(5)).toBe(true);
+    });
+  });
+});

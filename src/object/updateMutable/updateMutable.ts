@@ -10,7 +10,21 @@ import type { UpdateMutableOptions } from './types';
  * @param options オプション
  * @returns 更新されたキーと以前の値
  */
-export default function updateMutable<T extends LooseRecord>(
+const updateMutable = <T extends LooseRecord>(
+  object: T | null | undefined,
+  values: Partial<T> | null | undefined,
+  options?: UpdateMutableOptions,
+): Partial<T> => _updateMutable(object, values, options);
+updateMutable.dataLast =
+  <T extends LooseRecord>(
+    values: Partial<T> | null | undefined,
+    options?: UpdateMutableOptions,
+  ) =>
+  (object: T | null | undefined): Partial<T> =>
+    _updateMutable(object, values, options);
+export default updateMutable;
+
+function _updateMutable<T extends LooseRecord>(
   object: T | null | undefined,
   values: Partial<T> | null | undefined,
   options?: UpdateMutableOptions,

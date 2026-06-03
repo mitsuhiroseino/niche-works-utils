@@ -17,22 +17,22 @@ export default function comparePerformance<
   R = unknown,
 >(agenda: MeasurementAgenda<A>): MeasurementResult<A, R> {
   // 開始日時
-  const start = new Date(),
-    {
-      id = String(start.getTime()),
-      targets,
-      args,
-      getArgs,
-      iteration = 10,
-      tests = 10,
-      warmingUp,
-    } = agenda,
-    // measure関数の引数
-    opts = { args, getArgs, iteration },
-    // 各測定回の結果
-    results: RequiredTimeResult[] = [],
-    // 各測定対象の戻り値
-    returnValues = {};
+  const start = new Date();
+  const {
+    id = String(start.getTime()),
+    targets,
+    args,
+    getArgs,
+    iteration = 10,
+    tests = 10,
+    warmingUp,
+  } = agenda;
+  // measure関数の引数
+  const opts = { args, getArgs, iteration };
+  // 各測定回の結果
+  const results: RequiredTimeResult[] = [];
+  // 各測定対象の戻り値
+  const returnValues = {};
 
   if (warmingUp) {
     // ウォーミングアップ
@@ -50,8 +50,8 @@ export default function comparePerformance<
     const result = {};
     for (const target of processingOrder) {
       // 計測
-      const { time, returnValue } = measure(target.fn, opts),
-        targetId = target.id;
+      const { time, returnValue } = measure(target.fn, opts);
+      const targetId = target.id;
 
       // 計測結果
       result[targetId] = time;
@@ -65,9 +65,9 @@ export default function comparePerformance<
   }
 
   // 平均値の計算を行う
-  const averageResult = _tabulateResult(targets, results),
-    // 終了日時
-    end = new Date();
+  const averageResult = _tabulateResult(targets, results);
+  // 終了日時
+  const end = new Date();
 
   // 測定結果を返す
   return {

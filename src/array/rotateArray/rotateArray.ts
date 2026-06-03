@@ -18,12 +18,8 @@ export default rotateArray;
 function _rotateArray<I>(data: I[], options: RotateArrayOptions = {}): I[] {
   const { count = 1, inplace } = options;
   let offset;
-  if (
-    isEmptyCollection(data) ||
-    count === 0 ||
-    (offset = count % data.length) === 0
-  ) {
-    return inplace ? data : [];
+  if (isEmptyCollection(data) || (offset = count % data.length) === 0) {
+    return inplace ? data : [...data];
   }
 
   if (inplace) {
@@ -33,6 +29,6 @@ function _rotateArray<I>(data: I[], options: RotateArrayOptions = {}): I[] {
   } else {
     const head = data.slice(0, offset);
     const tail = data.slice(offset);
-    return [...head, ...tail];
+    return [...tail, ...head];
   }
 }

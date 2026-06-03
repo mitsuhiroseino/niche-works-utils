@@ -5,6 +5,14 @@
  * @param max 最大値
  * @returns 最小値から最大値の間の値
  */
-export default function rangeClamp(value: number, min: number, max: number) {
+const rangeClamp = (value: number, min: number, max: number) =>
+  _rangeClamp(value, min, max);
+rangeClamp.dataLast =
+  (min: number, max: number) =>
+  (value: number) =>
+    _rangeClamp(value, min, max);
+export default rangeClamp;
+
+function _rangeClamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }

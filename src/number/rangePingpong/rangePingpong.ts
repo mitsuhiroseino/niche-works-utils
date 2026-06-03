@@ -7,7 +7,15 @@ import isWithinRange from '../isWithinRange';
  * @param max 最大値
  * @returns 最小値から最大値の間の値
  */
-export default function rangePingpong(value: number, min: number, max: number) {
+const rangePingpong = (value: number, min: number, max: number) =>
+  _rangePingpong(value, min, max);
+rangePingpong.dataLast =
+  (min: number, max: number) =>
+  (value: number) =>
+    _rangePingpong(value, min, max);
+export default rangePingpong;
+
+function _rangePingpong(value: number, min: number, max: number) {
   if (isWithinRange(value, min, max)) {
     return value;
   }

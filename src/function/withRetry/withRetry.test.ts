@@ -19,7 +19,9 @@ describe('withRetry', () => {
   function failTimes(n: number, resolvedValue = 'ok') {
     let count = 0;
     return vi.fn(async () => {
-      if (count++ < n) throw new Error(`fail #${count}`);
+      if (count++ < n) {
+        throw new Error(`fail #${count}`);
+      }
       return resolvedValue;
     });
   }
@@ -319,7 +321,9 @@ describe('withRetry', () => {
     it('複数の並行呼び出しが互いに干渉しない', async () => {
       let callCount = 0;
       const fn = vi.fn(async (id: number) => {
-        if (callCount++ < 2) throw new Error('concurrent fail');
+        if (callCount++ < 2) {
+          throw new Error('concurrent fail');
+        }
         return `result-${id}`;
       });
       const wrapped = withRetry(fn, 3);

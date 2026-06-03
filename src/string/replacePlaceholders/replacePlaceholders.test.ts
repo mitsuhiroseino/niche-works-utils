@@ -39,4 +39,20 @@ describe('replacePlaceholders', () => {
     );
     expect(result).toBe('{{ABC}}DEFGHIJKL?NOPQRSTUVWX@@');
   });
+
+  it('flatKeys: trueでネストしないキーで取得する', () => {
+    const result = replacePlaceholders(
+      '{{name}}さん',
+      { name: 'Alice' },
+      { flatKeys: true },
+    );
+    expect(result).toBe('Aliceさん');
+  });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      const result = replacePlaceholders.dataLast({ name: 'Alice' })('{{name}}さん');
+      expect(result).toBe('Aliceさん');
+    });
+  });
 });

@@ -17,12 +17,15 @@ import type { FlattenObjectOptions } from './types';
  * // 配列を含む場合
  * flattenObject({ a: [1, 2] }); // { "a.0": 1, "a.1": 2 }
  */
-export default function flattenObject(
+const flattenObject = (
   data: LooseRecord,
   options: FlattenObjectOptions = {},
-): LooseRecord {
-  return _flattenObject(data, options);
-}
+): LooseRecord => _flattenObject(data, options);
+flattenObject.dataLast =
+  (options: FlattenObjectOptions = {}) =>
+  (data: LooseRecord): LooseRecord =>
+    _flattenObject(data, options);
+export default flattenObject;
 
 function _flattenObject(
   data: LooseRecord,

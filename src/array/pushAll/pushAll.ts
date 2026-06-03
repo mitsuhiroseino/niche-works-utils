@@ -13,8 +13,12 @@ pushAll.dataLast =
 export default pushAll;
 
 function _pushAll<T>(data: T[], source: T[]): T[] {
-  if (data && source) {
-    data.push(...source);
+  if (data) {
+    if (source) {
+      data = [...data, ...source];
+    } else {
+      data = [...data];
+    }
   }
   return data;
 }

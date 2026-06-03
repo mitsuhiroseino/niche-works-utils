@@ -119,6 +119,18 @@ describe('createExtractor', () => {
     });
   });
 
+  describe('マッチなし', () => {
+    it('デリミタが含まれない文字列は空配列を返す', () => {
+      const extract = createExtractor(['{{', '}}']);
+      expect(extract('no placeholders here')).toEqual([]);
+    });
+
+    it('空文字は空配列を返す', () => {
+      const extract = createExtractor(['{{', '}}']);
+      expect(extract('')).toEqual([]);
+    });
+  });
+
   describe('unique=true', () => {
     it('prefix="{{", suffix="}}"', () => {
       const extractTokensCustom = createExtractor(['{{', '}}']);

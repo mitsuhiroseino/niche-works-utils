@@ -117,19 +117,19 @@ function sort<I>(
   getDepId: GetIdFn<I>,
   ignoreNoSubstance: boolean,
 ) {
-  const distinctArray = new Array(...itemsMap.values()),
-    length = distinctArray.length,
-    sorted = [],
-    visited = {},
-    dependenciesMap = makeDependenciesMap(itemsMap, getDeps, getDepId),
-    reverseLookupMap = makeReverseLookupMap(distinctArray, getId),
-    visit = createVisit(
-      itemsMap,
-      dependenciesMap,
-      reverseLookupMap,
-      getId,
-      ignoreNoSubstance,
-    );
+  const distinctArray = new Array(...itemsMap.values());
+  const length = distinctArray.length;
+  const sorted = [];
+  const visited = {};
+  const dependenciesMap = makeDependenciesMap(itemsMap, getDeps, getDepId);
+  const reverseLookupMap = makeReverseLookupMap(distinctArray, getId);
+  const visit = createVisit(
+    itemsMap,
+    dependenciesMap,
+    reverseLookupMap,
+    getId,
+    ignoreNoSubstance,
+  );
 
   for (let i = 0; i < length; i++) {
     if (!visited[i]) {

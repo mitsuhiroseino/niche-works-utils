@@ -8,7 +8,15 @@ import isWithinRange from '../isWithinRange';
  * @param defaultValue デフォルト値
  * @returns 最小値から最大値の間の値
  */
-export default function rangeDefault(
+const rangeDefault = (value: number, min: number, max: number, defaultValue: number) =>
+  _rangeDefault(value, min, max, defaultValue);
+rangeDefault.dataLast =
+  (min: number, max: number, defaultValue: number) =>
+  (value: number) =>
+    _rangeDefault(value, min, max, defaultValue);
+export default rangeDefault;
+
+function _rangeDefault(
   value: number,
   min: number,
   max: number,

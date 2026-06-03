@@ -8,7 +8,18 @@ const getShallow = (values: unknown, key: string) => values[key];
 /**
  * テンプレート内のプレイスホルダーを指定された値で置換する
  */
-export default function replacePlaceholders(
+const replacePlaceholders = (
+  template: string,
+  values: LooseDictionary | unknown[],
+  options: ReplacePlaceholdersOptions = {},
+): string => _replacePlaceholders(template, values, options);
+replacePlaceholders.dataLast =
+  (values: LooseDictionary | unknown[], options: ReplacePlaceholdersOptions = {}) =>
+  (template: string): string =>
+    _replacePlaceholders(template, values, options);
+export default replacePlaceholders;
+
+function _replacePlaceholders(
   template: string,
   values: LooseDictionary | unknown[],
   options: ReplacePlaceholdersOptions = {},

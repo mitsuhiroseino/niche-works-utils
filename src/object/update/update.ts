@@ -10,7 +10,18 @@ import type { UpdateOptions } from './types';
  * @param options オプション
  * @returns 更新されたキーと以前の値
  */
-export default function update<T extends LooseRecord>(
+const update = <T extends LooseRecord>(
+  object: T,
+  values: Partial<T>,
+  options?: UpdateOptions,
+): Partial<T> => _update(object, values, options);
+update.dataLast =
+  <T extends LooseRecord>(values: Partial<T>, options?: UpdateOptions) =>
+  (object: T): Partial<T> =>
+    _update(object, values, options);
+export default update;
+
+function _update<T extends LooseRecord>(
   object: T,
   values: Partial<T>,
   options?: UpdateOptions,

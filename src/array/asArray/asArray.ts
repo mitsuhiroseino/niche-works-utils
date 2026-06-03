@@ -1,3 +1,4 @@
+import { isIterable } from '../../type';
 import type { AsArrayOptions } from './types';
 
 /**
@@ -19,8 +20,8 @@ function _asArray<T>(data: unknown, options: AsArrayOptions = {}): T[] {
     return options.raw ? data : [...data];
   } else if (typeof data === 'string') {
     return [data as unknown as T];
-  } else if (Symbol.iterator in Object(data)) {
-    return Array.from(data as Iterable<T>);
+  } else if (isIterable<T>(data)) {
+    return Array.from(data);
   }
 
   return [data as T];

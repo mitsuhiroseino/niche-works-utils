@@ -15,7 +15,18 @@ import type { TransformStringOptions } from './types';
  * @param types
  * @returns
  */
-export default function transformString(
+const transformString = (
+  str: string,
+  types: TransformationType[],
+  options: TransformStringOptions = {},
+): string => _transformString(str, types, options);
+transformString.dataLast =
+  (types: TransformationType[], options: TransformStringOptions = {}) =>
+  (str: string): string =>
+    _transformString(str, types, options);
+export default transformString;
+
+function _transformString(
   str: string,
   types: TransformationType[],
   options: TransformStringOptions = {},

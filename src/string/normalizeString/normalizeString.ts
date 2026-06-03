@@ -8,7 +8,17 @@ import type { NormalizeStringOptions } from './types';
  * @param options オプション
  * @returns 整えられた文字列
  */
-export default function normalizeString(
+const normalizeString = (
+  value: string,
+  options: NormalizeStringOptions = {},
+): string => _normalizeString(value, options);
+normalizeString.dataLast =
+  (options: NormalizeStringOptions = {}) =>
+  (value: string): string =>
+    _normalizeString(value, options);
+export default normalizeString;
+
+function _normalizeString(
   value: string,
   options: NormalizeStringOptions = {},
 ): string {
@@ -17,7 +27,7 @@ export default function normalizeString(
     const {
       ignoreCompatibility,
       ignoreComposition,
-      ingoreWidth,
+      ignoreWidth,
       ignoreCase,
       ignoreKana,
       ignoreDakuon,
@@ -37,7 +47,7 @@ export default function normalizeString(
         // 合成の違いを無視する
         transformationTypes.push(TransformationType.toNfc);
       }
-      if (ingoreWidth) {
+      if (ignoreWidth) {
         // 半角・全角の違いを無視する
         transformationTypes.push(TransformationType.toHalfWidtn);
       }

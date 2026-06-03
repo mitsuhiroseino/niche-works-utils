@@ -47,7 +47,7 @@ function _ensureValidValue<T = unknown>(
     if (type === validType) {
       // 指定の型だった場合
       return data as T;
-    } else if (type === KindType.UNDEFINED && 'undefinedValue' in options) {
+    } else if (type === KindType.undefined && 'undefinedValue' in options) {
       // undefinedの場合の代替値
       return options.undefinedValue as T;
     } else if (type === KindType.null && 'nullValue' in options) {

@@ -1,4 +1,5 @@
 import { _getTransformedKey } from '../../_internal/_normalizedKeyHelpers';
+import type { NormalizeStringOptions } from '../../string/normalizeString';
 import type { GetByNormalizedKeyOptions } from './types';
 
 /**
@@ -13,16 +14,23 @@ import type { GetByNormalizedKeyOptions } from './types';
 export default function getByNormalizedKey<T extends Record<string, unknown>>(
   data: T,
   key: string,
-  options?: GetByNormalizedKeyOptions,
+  options: GetByNormalizedKeyOptions = {},
 ): unknown {
   if (!data) {
     return data;
   }
-
-  const normalizedKey = _getTransformedKey(key, data, options);
+  const { caseSensitive = false, ...rest } = options;
+  const normalizeOptions: NormalizeStringOptions = {
+    ...rest,
+    ignoreCase: !caseSensitive,
+  };
+  const normalizedKey = _getTransformedKey(key, data, normalizeOptions);
   for (const existingKey in data) {
     if (Object.hasOwn(data, existingKey)) {
-      if (_getTransformedKey(existingKey, data, options) === normalizedKey) {
+      if (
+        _getTransformedKey(existingKey, data, normalizeOptions) ===
+        normalizedKey
+      ) {
         return data[existingKey];
       }
     }

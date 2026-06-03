@@ -13,9 +13,9 @@ export default function measure<A extends unknown[] = unknown[], R = unknown>(
 ): MeasureReturnValue<R> {
   const { iteration = 10, args = [] as A, getArgs = () => args } = options;
   // 指定回数分実行
-  let returnValue,
-    // 所要時間
-    time = 0;
+  let returnValue;
+  // 所要時間
+  let time = 0;
   for (let i = 0; i < iteration; i++) {
     // 引数の取得
     const currentArgs = getArgs();

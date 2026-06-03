@@ -73,7 +73,18 @@ const EQUAL_WITH_CUSTOMIZER = {
  * @param options オプション
  * @returns 比較結果
  */
-export default function isEqualBy(
+const isEqualBy = (
+  value1: unknown,
+  value2: unknown,
+  options: IsEqualByOptions = {},
+): boolean => _isEqualBy(value1, value2, options);
+isEqualBy.dataLast =
+  (value2: unknown, options: IsEqualByOptions = {}) =>
+  (value1: unknown): boolean =>
+    _isEqualBy(value1, value2, options);
+export default isEqualBy;
+
+function _isEqualBy(
   value1: unknown,
   value2: unknown,
   options: IsEqualByOptions = {},

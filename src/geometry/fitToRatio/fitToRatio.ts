@@ -7,7 +7,18 @@ import type { FitToRatioOptions } from './types';
  * @param options
  * @returns
  */
-export default function fitToRatio(
+const fitToRatio = (
+  value: number,
+  ratio: number,
+  options: FitToRatioOptions = {},
+) => _fitToRatio(value, ratio, options);
+fitToRatio.dataLast =
+  (ratio: number, options: FitToRatioOptions = {}) =>
+  (value: number) =>
+    _fitToRatio(value, ratio, options);
+export default fitToRatio;
+
+function _fitToRatio(
   value: number,
   ratio: number,
   options: FitToRatioOptions = {},

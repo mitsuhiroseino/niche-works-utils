@@ -10,10 +10,22 @@ import type { MaybeDefaultOptions } from './types';
  * @param options オプション
  * @returns デフォルト値が設定されたオブジェクト
  */
-export default function maybeDefault<
-  T extends LooseRecord,
-  V extends LooseRecord,
->(target: T, defaultValues: V, options: MaybeDefaultOptions = {}): T & V {
+const maybeDefault = <T extends LooseRecord, V extends LooseRecord>(
+  target: T,
+  defaultValues: V,
+  options: MaybeDefaultOptions = {},
+): T & V => _maybeDefault(target, defaultValues, options);
+maybeDefault.dataLast =
+  <V extends LooseRecord>(defaultValues: V, options: MaybeDefaultOptions = {}) =>
+  <T extends LooseRecord>(target: T): T & V =>
+    _maybeDefault(target, defaultValues, options);
+export default maybeDefault;
+
+function _maybeDefault<T extends LooseRecord, V extends LooseRecord>(
+  target: T,
+  defaultValues: V,
+  options: MaybeDefaultOptions = {},
+): T & V {
   if (target && defaultValues) {
     return maybeDefaultMutable({ ...target }, defaultValues, options);
   }

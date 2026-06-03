@@ -9,7 +9,18 @@ import type { InterpolateNumberOptions } from './types';
  * @param options オプション
  * @returns 算出された数値
  */
-export default function interpolateNumber(
+const interpolateNumber = (
+  value: number,
+  ratio: number,
+  options: InterpolateNumberOptions = {},
+): number => _interpolateNumber(value, ratio, options);
+interpolateNumber.dataLast =
+  (ratio: number, options: InterpolateNumberOptions = {}) =>
+  (value: number): number =>
+    _interpolateNumber(value, ratio, options);
+export default interpolateNumber;
+
+function _interpolateNumber(
   value: number,
   ratio: number,
   options: InterpolateNumberOptions = {},

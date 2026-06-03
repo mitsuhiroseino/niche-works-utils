@@ -7,6 +7,14 @@ import isWithinRange from '../isWithinRange';
  * @param max 最大値
  * @returns 最小値から最大値の間の値
  */
-export default function rangeMin(value: number, min: number, max: number) {
+const rangeMin = (value: number, min: number, max: number) =>
+  _rangeMin(value, min, max);
+rangeMin.dataLast =
+  (min: number, max: number) =>
+  (value: number) =>
+    _rangeMin(value, min, max);
+export default rangeMin;
+
+function _rangeMin(value: number, min: number, max: number) {
   return isWithinRange(value, min, max) ? value : min;
 }

@@ -15,7 +15,17 @@ import type { RetypeToFullWidthOptions } from './types';
  * @param str
  * @returns
  */
-export default function retypeToFullWidth(
+const retypeToFullWidth = (
+  str: string,
+  options: RetypeToFullWidthOptions = {},
+): string => _retypeToFullWidth(str, options);
+retypeToFullWidth.dataLast =
+  (options: RetypeToFullWidthOptions = {}) =>
+  (str: string): string =>
+    _retypeToFullWidth(str, options);
+export default retypeToFullWidth;
+
+function _retypeToFullWidth(
   str: string,
   options: RetypeToFullWidthOptions = {},
 ): string {

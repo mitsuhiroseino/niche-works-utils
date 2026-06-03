@@ -13,10 +13,25 @@ import type {
  * @param rules
  * @param options
  */
-export default function distribute<
-  T extends LooseRecord,
-  R extends DistributeRules<T>,
->(data: T, rules: R, options: DistributeOptions = {}): DistributeResult<T, R> {
+const distribute = <T extends LooseRecord, DR extends DistributeRules<T>>(
+  data: T,
+  rules: DR,
+  options: DistributeOptions = {},
+): DistributeResult<T, DR> => _distribute(data, rules, options);
+distribute.dataLast =
+  <T extends LooseRecord, DR extends DistributeRules<T>>(
+    rules: DR,
+    options: DistributeOptions = {},
+  ) =>
+  (data: T): DistributeResult<T, DR> =>
+    _distribute(data, rules, options);
+export default distribute;
+
+function _distribute<T extends LooseRecord, DR extends DistributeRules<T>>(
+  data: T,
+  rules: DR,
+  options: DistributeOptions = {},
+): DistributeResult<T, DR> {
   const { includeInherited, cloneValue } = options;
   const has = includeInherited
     ? (property) => property in data
@@ -70,5 +85,5 @@ export default function distribute<
     }
   }
 
-  return result as DistributeResult<T, R>;
+  return result as DistributeResult<T, DR>;
 }

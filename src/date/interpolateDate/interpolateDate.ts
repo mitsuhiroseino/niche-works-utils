@@ -9,7 +9,18 @@ import type { InterpolateDateOptions } from './types';
  * @param options オプション
  * @returns 算出された日時
  */
-export default function interpolateDate(
+const interpolateDate = (
+  value: Date,
+  ratio: number,
+  options: InterpolateDateOptions = {},
+): Date => _interpolateDate(value, ratio, options);
+interpolateDate.dataLast =
+  (ratio: number, options: InterpolateDateOptions = {}) =>
+  (value: Date): Date =>
+    _interpolateDate(value, ratio, options);
+export default interpolateDate;
+
+function _interpolateDate(
   value: Date,
   ratio: number,
   options: InterpolateDateOptions = {},

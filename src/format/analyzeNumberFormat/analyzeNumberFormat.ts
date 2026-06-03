@@ -18,31 +18,33 @@ export default function analyzeNumberFormat(
   if (format == null) {
     return;
   }
-  const pattern = tokenizeFormat(format, REGEXP_FORMAT_TO_PATTERN),
-    dpIndex = pattern.indexOf('.'),
-    // 小数点の有無
-    dp = dpIndex > -1,
-    // 整数部のパターン(prefix,suffixを含む)
-    intPattern = dp ? pattern.slice(0, dpIndex).reverse() : pattern.reverse(),
-    intNumLength = intPattern.filter(
-      (token) => token === '0' || token === '#',
-    ).length,
-    // 小数部のパターン(prefix,suffixを含む & 余分な'.'は除外)
-    decPattern = dp
-      ? pattern.slice(dpIndex + 1).filter((token) => token !== '.')
-      : [],
-    decNumLength = decPattern.filter(
-      (token) => token === '0' || token === '#',
-    ).length,
-    // 桁区切りの有無
-    ts = intPattern.includes(',');
+  const pattern = tokenizeFormat(format, REGEXP_FORMAT_TO_PATTERN);
+  const dpIndex = pattern.indexOf('.');
+  // 小数点の有無
+  const dp = dpIndex > -1;
+  // 整数部のパターン(prefix,suffixを含む)
+  const intPattern = dp
+    ? pattern.slice(0, dpIndex).reverse()
+    : pattern.reverse();
+  const intNumLength = intPattern.filter(
+    (token) => token === '0' || token === '#',
+  ).length;
+  // 小数部のパターン(prefix,suffixを含む & 余分な'.'は除外)
+  const decPattern = dp
+    ? pattern.slice(dpIndex + 1).filter((token) => token !== '.')
+    : [];
+  const decNumLength = decPattern.filter(
+    (token) => token === '0' || token === '#',
+  ).length;
+  // 桁区切りの有無
+  const ts = intPattern.includes(',');
 
-  let prefix, suffix;
   // prefix
-  prefix = getXfix(R.last(intPattern));
+  const prefix = getXfix(R.last(intPattern));
   if (prefix != null) {
     intPattern.pop();
   }
+  let suffix;
   if (dp) {
     // 小数点あり
     // suffix
@@ -95,8 +97,8 @@ function tokenizeFormat(format: string, regex: RegExp): NumberFormatPattern {
       // #,0と固定文字列を見分けられるようにする
       if (isSurroundedBy(token, '"')) {
         // 固定文字列(label)
-        const label = token.substring(1, token.length - 1),
-          lastItem = R.last(result);
+        const label = token.substring(1, token.length - 1);
+        const lastItem = R.last(result);
         if (Array.isArray(lastItem)) {
           // 1つ前もlabelの場合は纏める
           lastItem.push(label);

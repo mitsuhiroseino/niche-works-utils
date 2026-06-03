@@ -24,7 +24,7 @@ export default function isBlank(
       case 'none':
         break;
       case 'half':
-        processed = processed.trim();
+        processed = processed.replace(/^[ \t\n\v\f\r]+|[ \t\n\v\f\r]+$/g, '');
         break;
       case 'full':
         processed = processed.replace(REGEX_FULL_WHITESPACE, '');

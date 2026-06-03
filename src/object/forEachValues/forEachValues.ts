@@ -9,7 +9,21 @@ import type { ForEachValuesOptions } from './types';
  * @param options
  * @returns 処理が最後まで行われた場合にtrue、処理が中断された場合にfalse
  */
-export default function forEachValues<T extends LooseRecord>(
+const forEachValues = <T extends LooseRecord>(
+  target: T,
+  callback: (value: unknown, key: PropertyKey, obj: T) => void | boolean,
+  options: ForEachValuesOptions = {},
+): boolean => _forEachValues(target, callback, options);
+forEachValues.dataLast =
+  <T extends LooseRecord>(
+    callback: (value: unknown, key: PropertyKey, obj: T) => void | boolean,
+    options: ForEachValuesOptions = {},
+  ) =>
+  (target: T): boolean =>
+    _forEachValues(target, callback, options);
+export default forEachValues;
+
+function _forEachValues<T extends LooseRecord>(
   target: T,
   callback: (value: unknown, key: PropertyKey, obj: T) => void | boolean,
   options: ForEachValuesOptions = {},

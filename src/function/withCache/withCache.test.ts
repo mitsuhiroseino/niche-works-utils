@@ -66,7 +66,9 @@ describe('withCache', () => {
     it('fn が reject した場合、キャッシュには保存されない', async () => {
       let count = 0;
       const fn = vi.fn(async () => {
-        if (count++ === 0) throw new Error('first fail');
+        if (count++ === 0) {
+          throw new Error('first fail');
+        }
         return 'ok';
       });
       const cached = withCache(fn);

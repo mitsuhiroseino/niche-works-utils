@@ -32,7 +32,19 @@ const STRATEGIES = {
  * @param options オプション
  * @returns
  */
-export default function ensureRange(
+const ensureRange = (
+  value: number,
+  min: number,
+  max: number,
+  options: EnsureRangeOptions = {},
+) => _ensureRange(value, min, max, options);
+ensureRange.dataLast =
+  (min: number, max: number, options: EnsureRangeOptions = {}) =>
+  (value: number) =>
+    _ensureRange(value, min, max, options);
+export default ensureRange;
+
+function _ensureRange(
   value: number,
   min: number,
   max: number,

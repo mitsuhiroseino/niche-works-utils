@@ -212,7 +212,9 @@ describe('withFallback', () => {
     it('複数の並行呼び出しが互いに干渉しない', async () => {
       let count = 0;
       const fn = vi.fn(async () => {
-        if (count++ % 2 === 0) throw new Error('odd fail');
+        if (count++ % 2 === 0) {
+          throw new Error('odd fail');
+        }
         return 'ok';
       });
       const wrapped = withFallback(fn, () => 'fallback');

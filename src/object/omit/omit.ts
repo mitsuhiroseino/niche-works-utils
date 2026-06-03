@@ -18,8 +18,7 @@ function _omit<T, R = unknown>(
   if (data == null) {
     return undefined;
   }
-  const keys = _parsePath(path);
-  // R.omit は動的なキー配列をスプレッドする型定義を持たないため
-  // asで今回の利用方法に合った型を定義する
-  return (R.omit as (...args: unknown[]) => R | undefined)(data, ...keys);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const keys = _parsePath(path) as any[];
+  return R.omit(data, keys) as R;
 }

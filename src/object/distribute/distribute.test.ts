@@ -304,4 +304,11 @@ describe('distribute', () => {
       expect(result.group).toHaveProperty('nullable', null);
     });
   });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      const result = distribute.dataLast({ identity: ['id', 'name'] as const })(user);
+      expect(result.identity).toEqual({ id: 1, name: 'Alice' });
+    });
+  });
 });

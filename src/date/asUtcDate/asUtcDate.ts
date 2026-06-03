@@ -1,7 +1,7 @@
 import createUtcDate from '../createUtcDate';
 
 /**
- * 指定された日付型の値のローカル日時と同じUTC日時の日付型を作成します。
+ * 指定された日付型の値のローカル日時と同じUTC日時の日付型を作成する。
  * @param date 日付型の値
  * @returns
  */

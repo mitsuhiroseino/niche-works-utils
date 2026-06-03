@@ -13,4 +13,3 @@ export * from './object';
 export * from './string';
 export * from './timer';
 export * from './type';
-export type * from './types';

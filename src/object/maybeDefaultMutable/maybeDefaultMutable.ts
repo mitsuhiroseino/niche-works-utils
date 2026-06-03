@@ -10,7 +10,7 @@ import type { MaybeDefaultMutableOptions } from './types';
  * @param options オプション
  * @returns デフォルト値が設定されたオブジェクト
  */
-export default function maybeDefault<
+export default function maybeDefaultMutable<
   T extends LooseRecord,
   V extends LooseRecord,
 >(

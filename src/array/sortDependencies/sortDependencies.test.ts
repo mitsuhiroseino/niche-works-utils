@@ -91,4 +91,114 @@ describe('sortDependencies', () => {
       ID_1B,
     ]);
   });
+
+  it('nullを渡した場合はそのまま返す', () => {
+    expect(sortDependencies(null)).toBeNull();
+  });
+
+  it('共有依存ノードがある場合でも正しくソートされる', () => {
+    const data = [
+      { id: 'A', deps: ['C'] },
+      { id: 'B', deps: ['C'] },
+      { id: 'C', deps: [] },
+    ];
+    const result = sortDependencies(data, {
+      idProp: 'id',
+      depsProp: 'deps',
+      depsIdProp: (dep) => dep,
+      ignoreNoSubstance: true,
+    });
+    expect(result.map((item) => item.id)).toEqual(['C', 'A', 'B']);
+  });
+
+  it('循環依存がある場合はエラーをスロー', () => {
+    const data = [
+      { id: 'A', deps: ['B'] },
+      { id: 'B', deps: ['A'] },
+    ];
+    expect(() =>
+      sortDependencies(data, {
+        idProp: 'id',
+        depsProp: 'deps',
+        depsIdProp: (dep) => dep,
+        ignoreNoSubstance: true,
+      }),
+    ).toThrow('Cyclic dependency');
+  });
+
+  it('存在しない依存先がある場合はエラーをスロー', () => {
+    const data = [{ id: 'A', deps: ['B'] }];
+    expect(() =>
+      sortDependencies(data, {
+        idProp: 'id',
+        depsProp: 'deps',
+        depsIdProp: (dep) => dep,
+      }),
+    ).toThrow('No substance');
+  });
+
+  it('desc: trueで逆順に並ぶ', () => {
+    const data = [
+      { id: 'A', deps: [] },
+      { id: 'B', deps: ['A'] },
+    ];
+    const result = sortDependencies(data, {
+      idProp: 'id',
+      depsProp: 'deps',
+      depsIdProp: (dep) => dep,
+      ignoreNoSubstance: true,
+      desc: true,
+    });
+    expect(result.map((item) => item.id)).toEqual(['B', 'A']);
+  });
+
+  it('idPropが関数の場合も動作する', () => {
+    const data = [
+      { id: 'A', deps: [] },
+      { id: 'B', deps: ['A'] },
+    ];
+    const result = sortDependencies(data, {
+      idProp: (item) => item.id,
+      depsProp: 'deps',
+      depsIdProp: (dep) => dep,
+      ignoreNoSubstance: true,
+    });
+    expect(result.map((item) => item.id)).toEqual(['A', 'B']);
+  });
+
+  it('depsPropが関数の場合も動作する', () => {
+    const data = [
+      { id: 'A', deps: [] },
+      { id: 'B', deps: ['A'] },
+    ];
+    const result = sortDependencies(data, {
+      idProp: 'id',
+      depsProp: (item: any) => item.deps,
+      depsIdProp: (dep: any) => dep,
+      ignoreNoSubstance: true,
+    });
+    expect(result.map((item) => item.id)).toEqual(['A', 'B']);
+  });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      const result = sortDependencies.dataLast({
+        idProp: 'id',
+        depsProp: 'deps',
+        isTree: true,
+      })(TREE_1);
+      expect(result.map((item) => item.id)).toEqual([
+        ID_1A_2A_3A,
+        ID_1A_2A,
+        ID_1A_2B_3A,
+        ID_1A_2B,
+        ID_1A,
+        ID_1B_2A_3A,
+        ID_1B_2A,
+        ID_1B_2B_3A,
+        ID_1B_2B,
+        ID_1B,
+      ]);
+    });
+  });
 });

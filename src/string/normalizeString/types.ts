@@ -25,7 +25,7 @@ export type NormalizeStringOptions = {
   /**
    * 半角・全角の違いを無視する
    */
-  ingoreWidth?: boolean;
+  ignoreWidth?: boolean;
 
   /**
    * 英字の大文字・小文字の違いを無視する

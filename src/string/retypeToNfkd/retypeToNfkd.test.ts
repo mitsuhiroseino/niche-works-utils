@@ -112,4 +112,10 @@ describe('retypeToNfkd', () => {
       expect(result.endsWith('あいう漢字')).toBe(true);
     });
   });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      expect(retypeToNfkd.dataLast()('ＡＢＣ')).toBe('ABC');
+    });
+  });
 });

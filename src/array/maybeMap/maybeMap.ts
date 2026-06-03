@@ -4,7 +4,7 @@ const IS_TARGET = {
   undefined: <T>(value: T): value is T => value !== undefined,
   nullish: <T>(value: T): value is T => value != null,
   empty: <T>(value: T): value is T => value != null && value !== '',
-  falsy: <T>(value: T): value is T => !value,
+  falsy: <T>(value: T): value is T => !!value,
 };
 
 /**

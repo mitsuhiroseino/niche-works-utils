@@ -8,7 +8,18 @@ import type { IsLooseEqualOptions } from './types';
  * @param options オプション
  * @returns
  */
-export default function isLooseEqual(
+const isLooseEqual = (
+  value1: string,
+  value2: string,
+  options: IsLooseEqualOptions = {},
+): boolean => _isLooseEqual(value1, value2, options);
+isLooseEqual.dataLast =
+  (value2: string, options: IsLooseEqualOptions = {}) =>
+  (value1: string): boolean =>
+    _isLooseEqual(value1, value2, options);
+export default isLooseEqual;
+
+function _isLooseEqual(
   value1: string,
   value2: string,
   options: IsLooseEqualOptions = {},

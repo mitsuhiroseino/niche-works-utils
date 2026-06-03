@@ -1,5 +1,4 @@
 import type { LooseRecord } from '@niche-works/types';
-import _createContainer from '../../_internal/_createContainer';
 import _parsePath from '../../_internal/_parsePath';
 
 /**

@@ -21,4 +21,10 @@ describe('upperFirst', () => {
     const result = upperFirst(null as any);
     expect(result).toBe(null);
   });
+
+  describe('dataLast', () => {
+    it('基本動作', () => {
+      expect(upperFirst.dataLast()('abc')).toBe('Abc');
+    });
+  });
 });
